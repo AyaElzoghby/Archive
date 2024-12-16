@@ -7,7 +7,7 @@ function FileType() {
   return (
     <>
       <LocalGrid
-            // rowKey={"AssetID"}
+            rowKey={"TypeID"}
             globalParams={{
             }}
             params={{
@@ -59,7 +59,52 @@ function FileType() {
               },
              
             ]}
-          ></LocalGrid>
+            isExpand
+          >
+            <LocalGrid 
+                        rowKey={"AttributionID"}
+
+             params={{
+              ins: {
+                sp: "type_attribution_Ins",
+              },
+              trx: {
+                sp: "type_attribution_Trx",
+              },
+              del: { sp: "type_attribution_Del" },
+              upd: { sp: "type_attribution_upd " },
+            }}
+            tableConfig={[
+              {
+                Caption: "TypeID",
+                isRequired: true,
+                Input: true,
+                hidden: false,
+                keyName: "TypeID",
+                width: 100,
+              },
+              {
+                arCaption: " AttributionName",
+                isRequired: true,
+                Input: true,
+                type: "text",
+                hidden: false,
+                keyName: "AttributionName",
+               
+                width: 200,
+              },
+              {
+                arCaption: "AttributionType",
+                type: "text",
+                Input: true,
+                isRequired: true,
+                hidden: false,
+                keyName: "AttributionType",
+                width: 200,
+              },
+              
+            ]}/>
+          </LocalGrid>
     </>
   );
 }

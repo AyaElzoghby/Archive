@@ -33,7 +33,7 @@ function TreeBox() {
               className=""
               onClick={() => handleActiveTreeHeader(0)}
             >
-              <p className="font-[24px] font-bold">{ClassificationValue.value}Projects</p>
+              <p className="text-[24px] font-bold">{ClassificationValue.value}Projects</p>
             </div>
            
           </div>
