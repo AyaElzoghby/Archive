@@ -1,7 +1,10 @@
 import RootLayout from "../src/Pages/RootLayout"
+import SideMenuProvider from "./store/SideMenuContext";
 function App() {
   return <>
-  <RootLayout/>
+<SideMenuProvider>
+<RootLayout/>
+</SideMenuProvider>
   </>;
 }
 

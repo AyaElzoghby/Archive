@@ -3,15 +3,13 @@ import { useContext } from "react";
 
 import MainDropDown from "../Layout/MainDropDown";
 
-
-
 function AsideDropDowns() {
   const {
-    organizationData,
+    CompanyData,
     ClassificationData,
     ClassificationValue,
-    organizationValue,
-    setOrganizationValue,
+    CompanyValue,
+    setCompanyValue,
     setClassificationValue,
   } = useContext(SideMenuContext);
 
@@ -20,39 +18,39 @@ function AsideDropDowns() {
     setClassificationValue(value);
   };
 
-  const handleChangeOrganizationValue = (value) => {
-    localStorage.setItem("orgValue", JSON.stringify(value));
-    setOrganizationValue(value);
+  const handleChangeCompanyValue = (value) => {
+    localStorage.setItem("CompanyValue", JSON.stringify(value));
+    setCompanyValue(value);
   };
 
   return (
     <div>
       {/* {departmentData.length &&
-        organizationData.length &&
+        CompanyData.length &&
         ClassificationData.length && ( */}
-      <div className="flex flex-col gap-2 font-tajawal font-bold">
-      <div className="flex gap-2 mb-2">
+      <div className="flex flex-col gap-2 font-tajawal w-[371px] my-10 mx-auto font-bold">
+        <div className="flex items-center justify-between mb-2 h-[48px]">
           <p>Company</p>
-          <MainDropDown
-          placeholder={"Company"}
-          options={organizationData}
-          value={organizationValue}
-          onChange={(value) => handleChangeOrganizationValue(value)}
-        ></MainDropDown>
-        </div> 
-        <div className="flex gap-2 mb-2">
-          <p>Classification</p>
-          <MainDropDown
-          placeholder={"Classification "}
-          options={ClassificationData}
-          value={ClassificationValue}
-          onChange={(value) => handleChangeClassificationValue(value)}
-        ></MainDropDown>
-       
+          <div className="max-w-[201px]">
+            <MainDropDown
+              placeholder={"Company"}
+              options={CompanyData}
+              value={CompanyValue}
+              onChange={(value) => handleChangeCompanyValue(value)}
+            ></MainDropDown>
+          </div>
         </div>
-     
-       
-       
+        <div className="flex items-center justify-between mb-2">
+          <p>Classification</p>
+          <div className="max-w-[201px]">
+            <MainDropDown
+              placeholder={"Classification "}
+              options={ClassificationData}
+              value={ClassificationValue}
+              onChange={(value) => handleChangeClassificationValue(value)}
+            ></MainDropDown>
+          </div>
+        </div>
       </div>
       {/* )} */}
     </div>

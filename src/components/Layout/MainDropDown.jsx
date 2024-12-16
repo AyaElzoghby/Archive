@@ -141,7 +141,7 @@ function MainDropDown({
           {...props}
           placeholder={`Choose ${placeholder}`}
           ref={selectRef}
-          className="w-full box-border py-1 pr-2 pl-12 font-tajawal center font-semibold text-sm border border-inputBorder text-inputTextColor hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded outline-none placeholder:font-light"
+          className="w-full h-[48px] box-border py-1 pl-2 pr-12 font-tajawal font-semibold text-sm border border-inputBorder text-inputTextColor hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded outline-none placeholder:font-light"
           value={isFocused ? inputValue : value.label}
           onClick={isFocused ? handleInputBlur : handleInputFocus}
           onBlur={handleInputBlur}
@@ -149,7 +149,7 @@ function MainDropDown({
           onChange={(e) => setInputValue(e.target.value)}
         />
         <div
-          className={`absolute left-1 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ${
+          className={`absolute right-1 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ${
             isFocused ? "rotate-180" : "rotate-0"
           } pointer-events-none`}
         >

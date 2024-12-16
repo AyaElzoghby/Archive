@@ -85,9 +85,9 @@ function Aside() {
       <aside
         id="Aside"
         ref={AsideRef}
-        className={`h-full bg-[#FAFAFA] rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
+        className={`h-full bg-white rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
           isOpened
-            ? " flex-1 min-w-[280px] "
+            ? " flex-1 min-w-[451px] "
             : "scrollbar-none w-[5.5rem] min-w-[85px]"
         } duration-500 transition-all`}
       >

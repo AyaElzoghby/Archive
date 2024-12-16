@@ -2,7 +2,7 @@
 import { Aside, Header, SecondaryHeader } from "../components/index";
 import SearchInput from "../components/Inputs/SearchInput";
 import CreateInpute from "../components/Inputs/CreateInpute";
-import UploadComponent from "../components/Inputs/UploadComponent";
+import CreateComponent from "../components/Inputs/CreateComponent";
 
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
@@ -29,11 +29,14 @@ function RootLayout() {
               }}
             />
           </div> */}
-          <div className="grow border bordeer-[#FAFAFA] border-r-2  p-4">
+          <div className="grow border bordeer-[#FAFAFA] border-r-2  p-6">
             <SearchInput />
-            <div className="flex p-4 gap-4">
-              <CreateInpute />
-              <UploadComponent />
+            <div className="flex items-center">
+              {/* <CreateInpute /> */}
+              <div className="w-[180px] h-[108px] left-0 mt-6 ">
+              <CreateComponent />
+
+              </div>
             </div>
           </div>
           <div className="grow p-4">

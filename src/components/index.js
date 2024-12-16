@@ -1,6 +1,6 @@
 import { LocalGrid, NestedTable, MainGrid, InlineGrid } from "./Grid";
 import { DraftModal, InfoLayout, IconComp } from "./Grid/UI";
-import FileUploader from "./Inputs/UploadComponent";
+import FileUploader from "./Inputs/CreateComponent";
 import { Tab, TabContainer, TabContent } from "./Grid/tab";
 // import { BarChart, DoughnutChart } from "./Charts";
 

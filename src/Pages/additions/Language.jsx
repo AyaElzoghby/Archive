@@ -4,12 +4,18 @@ import { DropDown } from "../../components";
 import { SideMenuContext } from "../../../src/store/SideMenuContext";
 
 const Language = () => {
-  const [LangrMenu, setLangrMenu] = useState(false);
-  const dropdownRef = useRef(null); 
+  const [langMenu, setLangMenu] = useState(false); // Fixed typo in variable name
+  const dropdownRef = useRef(null);
 
-  const { languageValue, Languages, setLanguageValue } = useContext(SideMenuContext);
+  const { languageValue, setLanguageValue } = useContext(SideMenuContext);
 
-  const handleChangeLangage = (value) => {
+  // Language options
+  const Languages = [
+    { value: 1, label: "العربيه", img: "/icons/Egypt.svg" },
+    { value: 2, label: "English", img: "/icons/UnitedStates.svg" },
+  ];
+
+  const handleChangeLanguage = (value) => {
     localStorage.setItem("LangValue", JSON.stringify(value));
     setLanguageValue(value);
   };
@@ -18,7 +24,7 @@ const Language = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setLangrMenu(false); // Close the dropdown menu
+        setLangMenu(false); // Close the dropdown menu
       }
     };
 
@@ -29,30 +35,30 @@ const Language = () => {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative w-40">
+    <div ref={dropdownRef} className="relative w-[150px]">
       {/* Trigger Button for Popup */}
       <button
         onClick={(e) => {
           e.stopPropagation(); // Prevent click from propagating to window
-          setLangrMenu(!LangrMenu);
+          setLangMenu(!langMenu);
         }}
-        className={`flex justify-center items-center`}
+        className="flex justify-center items-center"
       >
         <img
           src={globalIcon}
-          alt=""
+          alt="Language Selector"
           className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
         />
       </button>
       <div
-        className={` absolute right-4 top-[50%] ${
-          LangrMenu ? "flex" : "hidden"
+        className={`absolute right-4 top-[50%] ${
+          langMenu ? "flex" : "hidden"
         }`}
       >
         <DropDown
           value={languageValue}
           onChange={(val) => {
-            handleChangeLangage(val);
+            handleChangeLanguage(val);
           }}
           placeHolder={"إختر اللغه"}
           options={Languages}
