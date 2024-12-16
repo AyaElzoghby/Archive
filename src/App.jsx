@@ -5,6 +5,8 @@ import SideMenuProvider from "./store/SideMenuContext";
 import { AuthProvider } from "./store/Auth";
 import { QueryClientProvider, QueryClient } from "react-query";
 
+import { FileType } from "./Pages/addingData";
+
 function App() {
   const queryClient = new QueryClient();
   const routes = createBrowserRouter([
@@ -19,7 +21,13 @@ function App() {
           </QueryClientProvider>
         </AuthProvider>
       ),
-      children: [{ path: "", element: <WelcomePage /> }],
+      children: [
+        { path: "", element: <WelcomePage /> },
+        {
+          path: "addData",
+          children: [{ path: "FileType", element: <FileType /> }],
+        },
+      ],
     },
   ]);
 
