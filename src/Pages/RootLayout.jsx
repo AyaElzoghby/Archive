@@ -7,7 +7,7 @@ import UploadComponent from "../components/Inputs/UploadComponent";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 
-function RootLayout() {
+function RootLayout({children}) {
   return (
     <div className="">
       <Header />
@@ -18,8 +18,10 @@ function RootLayout() {
         }}
       >
         <Aside />
-        <main className="w-full flex h-full overflow-y-auto scrollbar-none z-0">
-          {/* <div className="px-4">
+        <div> {children}</div>
+       
+        {/* <main className="w-full flex h-full overflow-y-auto scrollbar-none z-0">
+          <div className="px-4">
             <Outlet />
             <Toaster
               position="bottom-right"
@@ -28,7 +30,7 @@ function RootLayout() {
                 duration: 2000,
               }}
             />
-          </div> */}
+          </div>
           <div className="grow border bordeer-[#FAFAFA] border-r-2  p-4">
             <SearchInput />
             <div className="flex p-4 gap-4">
@@ -40,7 +42,7 @@ function RootLayout() {
             {" "}
             <SearchInput />
           </div>
-        </main>
+        </main> */}
       </div>
     </div>
   );
