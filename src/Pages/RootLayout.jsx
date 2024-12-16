@@ -18,7 +18,7 @@ function RootLayout() {
         }}
       >
         <Aside />
-        <main className="w-full h-full overflow-y-auto scrollbar-none z-0">
+        <main className="w-full h-full overflow-y-auto scrollbar-none">
           <div className="px-4">
             <Outlet />
             <Toaster

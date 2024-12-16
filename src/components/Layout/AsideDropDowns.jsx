@@ -6,32 +6,19 @@ import MainDropDown from "../Layout/MainDropDown";
 function AsideDropDowns() {
   const {
     CompanyData,
-    ClassificationData,
     ClassificationValue,
     CompanyValue,
-    setCompanyValue,
-    setClassificationValue,
+    handleChangeCompanyValue,
+    handleChangeClassificationValue,
+    classifications,
   } = useContext(SideMenuContext);
-
-  const handleChangeClassificationValue = (value) => {
-    localStorage.setItem("ClassificationValue", JSON.stringify(value));
-    setClassificationValue(value);
-  };
-
-  const handleChangeCompanyValue = (value) => {
-    localStorage.setItem("CompanyValue", JSON.stringify(value));
-    setCompanyValue(value);
-  };
 
   return (
     <div>
-      {/* {departmentData.length &&
-        CompanyData.length &&
-        ClassificationData.length && ( */}
-      <div className="flex flex-col gap-2 font-tajawal w-[371px] my-10 mx-auto font-bold">
-        <div className="flex items-center justify-between mb-2 h-[48px]">
+      <div className="flex flex-col gap-2 font-tajawal w-[371px] my-4 font-bold">
+        <div className="flex items-center justify-between mb-2">
           <p>Company</p>
-          <div className="max-w-[201px]">
+          <div className="max-w-[200px]">
             <MainDropDown
               placeholder={"Company"}
               options={CompanyData}
@@ -42,11 +29,11 @@ function AsideDropDowns() {
         </div>
         <div className="flex items-center justify-between mb-2">
           <p>Classification</p>
-          <div className="max-w-[201px]">
+          <div className="max-w-[200px]">
             <MainDropDown
-              placeholder={"Classification "}
-              options={ClassificationData}
+              placeholder={"Classification"}
               value={ClassificationValue}
+              options={classifications}
               onChange={(value) => handleChangeClassificationValue(value)}
             ></MainDropDown>
           </div>
