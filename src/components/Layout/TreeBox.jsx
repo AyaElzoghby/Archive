@@ -35,7 +35,6 @@ function TreeBox() {
             >
               <p className="text-[24px] font-bold">{ClassificationValue.value}Projects</p>
             </div>
-           
           </div>
           <div>
             {activeHeader === 0 && mainTreeData.length > 0 && (
@@ -48,7 +47,6 @@ function TreeBox() {
                 />
               </div>
             )}
-            
           </div>
         </>
       )}

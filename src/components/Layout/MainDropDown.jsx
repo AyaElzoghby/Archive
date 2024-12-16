@@ -141,7 +141,7 @@ function MainDropDown({
           {...props}
           placeholder={`Choose ${placeholder}`}
           ref={selectRef}
-          className="w-full h-[48px] box-border py-1 pl-2 pr-12 font-tajawal font-semibold text-sm border border-inputBorder text-inputTextColor hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded outline-none placeholder:font-light"
+          className="w-full h-[48px] box-border py-1 pl-2 pr-12 font-tajawal font-semibold text-sm border border-inputBorder text-inputTextColor hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded-lg outline-none placeholder:font-light"
           value={isFocused ? inputValue : value.label}
           onClick={isFocused ? handleInputBlur : handleInputFocus}
           onBlur={handleInputBlur}
@@ -189,7 +189,7 @@ function MainDropDown({
                 );
               })
             ) : (
-              <div className="p-2 text-gray-500">There's no options</div>
+              <div className="p-2 text-gray-500">{"There's no options"}</div>
             )}
           </div>
         )}
