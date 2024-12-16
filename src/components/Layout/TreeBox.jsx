@@ -29,13 +29,11 @@ function TreeBox() {
       {!loading && !error && (
         <>
           <div className="flex mb-2 h-[60px] w-[371px] text-center justify-center m-auto rounded-[10px] items-center font-tajawal bg-[#FAFAFA]">
-            <div
-              className=""
-              onClick={() => handleActiveTreeHeader(0)}
-            >
-              <p className="font-[24px] font-bold">{ClassificationValue.value}Projects</p>
+            <div className="" onClick={() => handleActiveTreeHeader(0)}>
+              <p className="text-[24px] font-bold">
+                {ClassificationValue.value}Projects
+              </p>
             </div>
-           
           </div>
           <div>
             {activeHeader === 0 && mainTreeData.length > 0 && (
@@ -48,7 +46,6 @@ function TreeBox() {
                 />
               </div>
             )}
-            
           </div>
         </>
       )}

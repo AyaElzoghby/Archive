@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { createContext, useState, useEffect, useCallback } from "react";
 import api from "../utilities/api";
 import { handleDropdownFormat, getInitialValue } from "../utilities/functions";
@@ -12,7 +13,7 @@ export const SideMenuContext = createContext({
   mainTreeData: [],
   setCompanyValue: () => {},
   setClassificationValue: () => {},
-  setLanguageValue: () => {},
+  handleChangeLanguage: () => {},
   loading: null,
   error: null,
   pageName: "",
@@ -45,17 +46,21 @@ function SideMenuProvider({ children }) {
     { value: 2, label: "English", img: "/icons/UnitedStates.svg" },
   ];
 
+  const handleChangeLanguage = (val) => {
+    localStorage.setItem("LangValue", JSON.stringify(val));
+    setLanguageValue(val);
+  };
+
   /**
    * Fetch dropdown data for Company and Classification.
    */
-  console.log('dlaskn')
   const fetchDropdownData = useCallback(async () => {
     try {
       setLoading(true);
 
       // Fetch the data from the API
       const response = await api.get(`/table?sp=api_admin_company_trx`);
-      console.log(response)
+      console.log(response);
       // Safely set the data from the response
       if (response?.data?.success) {
         const companyList = response.data.data || [];
@@ -150,6 +155,7 @@ function SideMenuProvider({ children }) {
         ClassificationData,
         languageValue,
         Languages,
+        handleChangeLanguage,
         CompanyValue,
         ClassificationValue,
         mainTreeData,

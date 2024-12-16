@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef, useEffect } from "react";
 import { ArrowDownIcon, trueIcon } from "../../assets/index";
-
+import { useContext } from "react";
+import { SideMenuContext } from "../../store/SideMenuContext";
 function DropDown({
   labelName,
   placeHolder,
@@ -11,6 +12,7 @@ function DropDown({
   isAtModal,
   intialOptionsToShow = 5,
   haveSearch,
+  notEditable = false,
   ...props
 }) {
   const [isFocused, setIsFocused] = useState(false);
@@ -18,33 +20,34 @@ function DropDown({
   const [activeOptionIndex, setActiveOptionIndex] = useState(-1);
   const [visibleCount, setVisibleCount] = useState(intialOptionsToShow);
   const [selectedValue, setSelectedValue] = useState(
-    options.find((option) => option.value === value)?.label || value
+    options.find((option) => option && option?.value === value)?.label || value
   );
+
+  const { languageValue } = useContext(SideMenuContext);
 
   const selectRef = useRef(null);
   const dropDownRef = useRef();
 
-  console.log(options);
-
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(inputValue.toLowerCase())
-  );
-
-  console.log(filteredOptions);
+  const filteredOptions =
+    options?.length >= 1
+      ? options.filter(
+          (option) =>
+            option &&
+            option.label?.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      : [];
 
   const visibleOptions = filteredOptions.slice(0, visibleCount);
 
-  console.log(visibleOptions);
-
   useEffect(() => {
     setSelectedValue(
-      options.find((option) => option.value === value)?.label || value.label
+      options.find((option) => option?.value === value)?.label || value?.label
     );
   }, [options]);
 
   const handleSelectChange = (selectedOption) => {
-    setSelectedValue(selectedOption.label);
-    if (onChange) onChange(selectedOption.value);
+    setSelectedValue(selectedOption?.label);
+    if (onChange) onChange(selectedOption?.value);
     setIsFocused(false);
     setActiveOptionIndex(-1);
   };
@@ -54,7 +57,7 @@ function DropDown({
   const handleInputBlur = (event) => {
     if (
       dropDownRef.current &&
-      dropDownRef.current.contains(event.relatedTarget)
+      dropDownRef.current.contains(event?.relatedTarget)
     ) {
       return;
     }
@@ -67,18 +70,18 @@ function DropDown({
       if (event.key === "ArrowDown") {
         event.preventDefault();
         setActiveOptionIndex((prevIndex) =>
-          prevIndex + 1 >= filteredOptions.length ? 0 : prevIndex + 1
+          prevIndex + 1 >= filteredOptions?.length ? 0 : prevIndex + 1
         );
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
         setActiveOptionIndex((prevIndex) =>
-          prevIndex - 1 < 0 ? filteredOptions.length - 1 : prevIndex - 1
+          prevIndex - 1 < 0 ? filteredOptions?.length - 1 : prevIndex - 1
         );
       } else if (event.key === "Enter") {
         event.preventDefault();
         if (
           activeOptionIndex >= 0 &&
-          activeOptionIndex < filteredOptions.length
+          activeOptionIndex < filteredOptions?.length
         ) {
           handleSelectChange(filteredOptions[activeOptionIndex]);
         }
@@ -139,32 +142,37 @@ function DropDown({
           {...props}
           placeholder={`اختر ${placeHolder || labelName}`}
           ref={selectRef}
-          className="w-full box-border p-2 pl-12 font-tajawal center font-semibold text-base border border-inputBorder text-inputTextColor hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded outline-none placeholder:font-light"
+          className={`${
+            notEditable ? "bg-mainBlue text-white" : "text-inputTextColor"
+          } w-full box-border p-2  font-tajawal center font-semibold text-base border border-inputBorder hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded outline-none placeholder:font-light`}
           value={isFocused ? inputValue : selectedValue}
-          onClick={isFocused ? handleInputBlur : handleInputFocus}
+          onClick={
+            notEditable ? null : isFocused ? handleInputBlur : handleInputFocus
+          }
           onBlur={handleInputBlur}
           onKeyDown={handleKeyDown}
           onChange={(e) => setInputValue(e.target.value)}
-          readOnly={!haveSearch}
+          readOnly={!haveSearch || (notEditable ? true : false)}
         />
         <div
-          className={`absolute left-1 top-1/2 transform -translate-y-1/2 transition-transform duration-300 ${
-            isFocused ? "rotate-180" : "rotate-0"
+          className={`absolute ${
+            languageValue === 1 ? "left-1" : "right-1"
+          }  top-1/2 transform -translate-y-1/2 transition-transform duration-300 ${
+            isFocused && !notEditable ? "rotate-180" : "rotate-0"
           } pointer-events-none`}
         >
           <img src={ArrowDownIcon} alt="Icon" className="w-[30px] h-[30px]" />
         </div>
 
-        {isFocused && (
+        {isFocused && !notEditable && (
           <div
             ref={dropDownRef}
-            className="absolute w-full m-1 bg-white border border-[#DCDCDC] rounded-md shadow-lg max-h-40 overflow-y-auto scroll-smooth"
+            className={`absolute w-full m-1 bg-white border border-[#DCDCDC] rounded-md shadow-lg max-h-40 overflow-y-auto scroll-smooth z-50`}
             style={{ zIndex: 9999 }}
           >
             {visibleOptions.length > 0 ? (
               visibleOptions.map((option, index) => {
                 const isActive = index === activeOptionIndex;
-
                 return (
                   <div
                     tabIndex={-1}
@@ -172,7 +180,7 @@ function DropDown({
                     className={`p-2 cursor-pointer hover:bg-gray-200 ${
                       isActive ? "bg-blue-100 active-option" : ""
                     } ${
-                      selectedValue === option.label ? "bg-[#F6F6F6]" : ""
+                      selectedValue === option?.label ? "bg-[#F6F6F6]" : ""
                     } flex justify-between items-center`}
                     onClick={() => handleSelectChange(option)}
                   >
@@ -184,12 +192,12 @@ function DropDown({
                       />
                     ) : null}
 
-                    <p>{option.label}</p>
+                    <p>{option?.label ? option?.label : ""}</p>
                     <img
                       src={trueIcon}
                       alt="Icon"
                       className={`w-[20px] h-[20px] ${
-                        selectedValue === option.label ? "" : "hidden"
+                        selectedValue === option?.label ? "" : "hidden"
                       }`}
                     />
                   </div>
