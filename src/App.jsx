@@ -1,11 +1,21 @@
-import RootLayout from "../src/Pages/RootLayout"
-import SideMenuProvider from "./store/SideMenuContext";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import RootLayout from "../src/Pages/RootLayout";
+import WelcomePage from "./Pages/WelcomePage";
+
 function App() {
-  return <>
-<SideMenuProvider>
-<RootLayout/>
-</SideMenuProvider>
-  </>;
+  const routes = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout > <WelcomePage /></RootLayout> ,
+      children: [
+       
+      ],
+    },
+  ]);
+
+  return(
+    <RouterProvider router={routes}></RouterProvider>
+  )
 }
 
 export default App;

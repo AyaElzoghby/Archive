@@ -5,7 +5,7 @@ import Language from "../../Pages/additions/Language"
 // import { bar } from "../../assets/index";
 export default function Header() {
 	return (
-		<header className="flex justify-between items-center px-8 py-2 bg-[#FAFAFA]  border-b border-[#00000010]  h-28">
+		<header className="flex justify-between items-center px-8 py-4 bg-[#FAFAFA]  border-b border-[#00000010]">
 			<img
 				src={IsisLogo}
 				alt="Logo 1"
