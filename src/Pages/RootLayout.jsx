@@ -32,8 +32,6 @@ function RootLayout({children}) {
             />
           </div> */}
           <div className="grow border bordeer-[#FAFAFA] border-r-2  p-6">
-          </div>
-          <div className="grow border bordeer-[#FAFAFA] border-r-2  p-4">
             <SearchInput />
             <div className="flex items-center">
               {/* <CreateInpute /> */}
@@ -47,7 +45,6 @@ function RootLayout({children}) {
             {" "}
             <SearchInput />
           </div>
-        </main> */}
       </div>
     </div>
   );
