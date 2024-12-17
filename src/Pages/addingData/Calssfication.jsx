@@ -1,15 +1,19 @@
 
+import { useContext } from "react";
 import { NestedTable } from "../../components/Grid/index";
 import { SideMenuContext } from "../../store/SideMenuContext";
 
 function Calssfication() {
+const {ClassificationValue,LangValue,CompanyValue}=useContext(SideMenuContext)
 
   return (
     <>
       <NestedTable
-            rowKey={"CompanyID"}
+            rowKey={"ClassficationID"}
             haveDel={false}
             globalParams={{
+              CompanyID:1,
+              IsPublic:1,
             }}
             ParentkeyName={"ClassficationParentID"}
 
@@ -24,17 +28,21 @@ function Calssfication() {
               upd: { sp: "api_calssfication_upd " },
             }}
             tableConfig={[
+              
               {
-                Caption: "CompanyID",
-                isRequired: true,
-                Input: true,
-                type:"number",
-                hidden: false,
-                keyName: "CompanyID",
-                width: 100,
+                keyName: "ClassficationParentID",
+                Input: false,
+                type: "text",
+                hidden: true,
               },
               {
-                arCaption: " ClassficationNameEn",
+                keyName: "ClassficationID",
+                Input: false,
+                type: "text",
+                hidden: true,
+              },
+              {
+                enCaption: " ClassficationNameEn",
                 isRequired: true,
                 Input: true,
                 type: "text",
@@ -44,7 +52,7 @@ function Calssfication() {
                 width: 200,
               },
               {
-                arCaption: "ClassficationNameAr",
+                enCaption: "ClassficationNameAr",
                 type: "text",
                 Input: true,
                 isRequired: true,
@@ -53,22 +61,14 @@ function Calssfication() {
                 width: 200,
               },
               {
-                arCaption: " IsPublic",
+                enCaption: " IsPublic",
                 type: "check",
-                Input: true,
-                isRequired: true,
-                hidden: false,
+                Input: false,
+                isRequired: false,
+                hidden: true,
                 keyName: "IsPublic",
                 width: 100,
-              }, {
-                arCaption: " ClassficationParentID",
-                type: "number",
-                Input: true,
-                isRequired: true,
-                hidden: false,
-                keyName: "ClassficationParentID",
-                width: 100,
-              },
+              }, 
              
             ]}
           >

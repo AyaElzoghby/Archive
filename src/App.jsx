@@ -5,7 +5,7 @@ import SideMenuProvider from "./store/SideMenuContext";
 import { AuthProvider } from "./store/Auth";
 import { QueryClientProvider, QueryClient } from "react-query";
 
-import { FileType } from "./Pages/addingData";
+import { FileType ,Calssfication } from "./Pages/addingData";
 
 function App() {
   const queryClient = new QueryClient();
@@ -24,8 +24,12 @@ function App() {
       children: [
         { path: "", element: <WelcomePage /> },
         {
-          path: "addData",
-          children: [{ path: "FileType", element: <FileType /> }],
+          path: "/FileType",
+          element:<FileType />
+        },{
+          path: "/Calssfication",
+          element:<Calssfication />
+         
         },
       ],
     },
