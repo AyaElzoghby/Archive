@@ -4,7 +4,12 @@ import WelcomePage from "./Pages/WelcomePage";
 import SideMenuProvider from "./store/SideMenuContext";
 import { AuthProvider } from "./store/Auth";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { FileType, Calssfication, AddDocumnet ,Company } from "./Pages/addingData";
+import {
+  FileType,
+  Calssfication,
+  AddDocumnet,
+  Company,
+} from "./Pages/addingData";
 
 function App() {
   const queryClient = new QueryClient();
@@ -30,10 +35,8 @@ function App() {
           path: "/Calssfication",
           element: <Calssfication />,
         },
-        { path: ":id", element: <AddDocumnet /> },
-        { path: "AddDocumnet", element: <AddDocumnet /> },
         { path: "Company", element: <Company /> },
-
+        { path: "Document/:id", element: <AddDocumnet /> },
       ],
     },
   ]);

@@ -196,19 +196,14 @@ function Aside() {
                     alt="homeIcon"
                     className="w-[20px]"
                   />
-                  <p 
-                    className={` pt-1 ${
-                      isOpened ? "block" : "hidden"
-                    }`}
-                  >
-                     Home Page
+                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+                    Home Page
                   </p>
                 </div>
                 <div
                   className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
                   onClick={() => {
-                    navigate('/filetype')
-
+                    navigate("/filetype");
                   }}
                 >
                   <img
@@ -217,19 +212,15 @@ function Aside() {
                     alt="homeIcon"
                     className="w-[20px]"
                   />
-                  <p 
-                    className={` pt-1 ${
-                      isOpened ? "block" : "hidden"
-                    }`}
-                  >
-                    Adding File Type 
-                    </p>
+                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+                    Adding File Type
+                  </p>
                 </div>
                 <div
                   className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
                   onClick={() => {
-                    navigate('/Calssfication')
-                    }}
+                    navigate("/Calssfication");
+                  }}
                 >
                   <img
                     src={homeIcon}
@@ -237,17 +228,10 @@ function Aside() {
                     alt="homeIcon"
                     className="w-[20px]"
                   />
-                  <p 
-                    className={` pt-1 ${
-                      isOpened ? "block" : "hidden"
-                    }`}
-                  >
-                    Adding Classification 
-                    </p>
-                   
+                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+                    Adding Classification
+                  </p>
                 </div>
-
-               
 
                 {/* TreeBox */}
                 <TreeBox />
