@@ -4,8 +4,7 @@ import WelcomePage from "./Pages/WelcomePage";
 import SideMenuProvider from "./store/SideMenuContext";
 import { AuthProvider } from "./store/Auth";
 import { QueryClientProvider, QueryClient } from "react-query";
-
-import { FileType } from "./Pages/addingData";
+import { FileType, Classfication, AddDocumnet } from "./Pages/addingData";
 
 function App() {
   const queryClient = new QueryClient();
@@ -25,7 +24,10 @@ function App() {
         { path: "", element: <WelcomePage /> },
         {
           path: "addData",
-          children: [{ path: "FileType", element: <FileType /> }],
+          children: [
+            { path: "FileType", element: <FileType /> },
+            { path: "AddDocumnet", element: <AddDocumnet /> },
+          ],
         },
       ],
     },
