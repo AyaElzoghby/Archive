@@ -31,7 +31,7 @@ const DoughnutChart = () => {
 
 	return (
 		<div
-			className=" p-6 bg-[#fafafa] rounded-md w-1/2"
+			className=" p-6 bg-[#fafafa] rounded-md w-full"
 			style={{ height: "400px" }}>
 			<Doughnut
 				data={data}

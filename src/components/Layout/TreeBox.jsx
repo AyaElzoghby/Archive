@@ -28,7 +28,7 @@ function TreeBox() {
       {loading && <Spinner />}
       {!loading && !error && (
         <>
-          <div className=" mx-auto flex justify-center items-center mb-2 py-2 w-80 text-center rounded-xl font-tajawal bg-[#FAFAFA]">
+          <div className="flex justify-center items-center mb-2 py-2 w-48 text-center rounded-xl font-tajawal bg-[#FAFAFA]">
             <div className="" onClick={() => handleActiveTreeHeader(0)}>
               <p className="text-lg font-bold">
                 {`${ClassificationValue.label} Projects`}
