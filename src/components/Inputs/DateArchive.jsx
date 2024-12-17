@@ -9,9 +9,7 @@ export const DateArchive = ({ title, value, onChange, placeHolder }) => {
 			</label>
 			<div>
 				<DateInput
-					onChange={(e) => {
-						onChange(e);
-					}}
+					onChange={onChange}
 					placeholder={placeHolder}
 					value={value}></DateInput>
 			</div>
