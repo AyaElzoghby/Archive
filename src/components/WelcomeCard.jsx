@@ -7,7 +7,7 @@ const WelcomeCard = () => {
   const [loader, setLoader] = useState(false);
   return (
     <div
-      className="rounded-lg p-4 m-4"
+      className="rounded-lg py-4 m-4"
       style={{
         backgroundImage: "linear-gradient(to right,#fafafa, #D9D9D9)",
       }}

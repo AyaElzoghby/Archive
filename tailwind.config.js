@@ -24,12 +24,9 @@ export default {
         logoMinistry: "url('/public/images/logos/logo2.png')",
       },
       fontFamily: {
-        tajawal: ["Tajawal", "sans-serif"], // Custom font
-
+        tajawal: ["Tajawal", "sans-serif"],
       },
     },
   },
-  plugins: [
-    // scrollbarPlugin, // Add the scrollbar plugin here
-  ],
+  plugins: [scrollbarPlugin],
 };
