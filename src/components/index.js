@@ -25,17 +25,14 @@ import {
 } from "./Layout";
 import {
   CrudButton,
-  DetailesCards,
   Modal,
   Pagination,
   Spinner,
-  StatsCards,
   TableButton,
   WelcomeCard,
 } from "./UI";
 export {
   Modal,
-  StatsCards,
   TabContent,
   InfoLayout,
   Checkbox,
@@ -52,7 +49,6 @@ export {
   Spinner,
   MainGrid,
   CrudButton,
-  DetailesCards,
   Tab,
   EditInput,
   MainInput,
