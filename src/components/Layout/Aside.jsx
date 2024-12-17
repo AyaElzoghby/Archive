@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-
 // import { profile, homeIcon, logout } from "../../assets";
 import X from "../../../public/icons/X.svg";
 import { useRef, useState, useEffect, useContext } from "react";
@@ -12,7 +11,7 @@ import HomeIcon from "/icons/Home.svg";
 import searchIcon from "/icons/Search-Magnifier.svg";
 
 import { TreeBox, AsideDropDowns } from "./index";
-import {Spinner} from "../UI/index"
+import { Spinner } from "../UI/index";
 import { IconComp } from "../Grid/UI";
 
 import { SideMenuContext } from "../../store/SideMenuContext";
@@ -26,10 +25,7 @@ function Aside() {
   // const { signOut, user } = useAuth();
   // const [mainTree, setMainTree] = useState([]);
   // const [reportTree, setReportTreeData] = useState([]);
-  const {
-    systemValue,
-    loading,
-  } = useContext(SideMenuContext);
+  const { systemValue, loading } = useContext(SideMenuContext);
 
   const userMenuRef = useRef(null);
   const AsideRef = useRef(null);
@@ -45,8 +41,6 @@ function Aside() {
   // useEffect(() => {
   //   setMainTree(buildTree(mainTreeData, null, "MenuParentID", "MenuID"));
   // }, [mainTreeData]);
-
-  
 
   // console.log(mainTree);
 
@@ -86,9 +80,7 @@ function Aside() {
         id="Aside"
         ref={AsideRef}
         className={`h-full bg-white rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
-          isOpened
-            ? " flex-1 min-w-[451px] "
-            : "scrollbar-none w-[5.5rem] min-w-[85px]"
+          isOpened ? " flex-1 min-w-[400px] " : "scrollbar-none  min-w-[5.5rem]"
         } duration-500 transition-all`}
       >
         {/* Toggle Button */}
@@ -241,8 +233,6 @@ function Aside() {
                   !isOpened ? "border-b border-b-[#D9D9D9]" : ""
                 }`}
               >
-   
-
                 <div
                   className={`flex justify-center items-center  duration-300 ${
                     !isOpened ? "block" : "hidden"
@@ -300,8 +290,6 @@ function Aside() {
                 
               </div> */}
             </div>
-
-           
           </div>
         )}
 

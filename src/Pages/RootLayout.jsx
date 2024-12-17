@@ -7,7 +7,7 @@ import CreateComponent from "../components/Inputs/CreateComponent";
 import { Toaster } from "react-hot-toast";
 import { Outlet } from "react-router-dom";
 
-function RootLayout({children}) {
+function RootLayout() {
   return (
     <div className="">
       <Header />
@@ -18,9 +18,7 @@ function RootLayout({children}) {
         }}
       >
         <Aside />
-        <div> {children}</div>
-       
-        {/* <main className="w-full flex h-full overflow-y-auto scrollbar-none z-0">
+        <main className="w-full h-full overflow-y-auto scrollbar-none">
           <div className="px-4">
             <Outlet />
             <Toaster
@@ -30,21 +28,19 @@ function RootLayout({children}) {
                 duration: 2000,
               }}
             />
-          </div> */}
-          <div className="grow border bordeer-[#FAFAFA] border-r-2  p-6">
-            <SearchInput />
-            <div className="flex items-center">
-              {/* <CreateInpute /> */}
-              <div className="w-[180px] h-[108px] left-0 mt-6 ">
+          </div>
+        </main>
+        {/* <div className="grow border bordeer-[#FAFAFA] border-r-2  p-6">
+          <SearchInput />
+          <div className="flex items-center">
+            <div className="w-[180px] h-[108px] left-0 mt-6 ">
               <CreateComponent />
-
-              </div>
             </div>
           </div>
-          <div className="grow p-4">
-            {" "}
-            <SearchInput />
-          </div>
+        </div> */}
+        {/* <div className="grow p-4">
+          <SearchInput />
+        </div> */}
       </div>
     </div>
   );

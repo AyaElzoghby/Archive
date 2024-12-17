@@ -28,14 +28,12 @@ function TreeBox() {
       {loading && <Spinner />}
       {!loading && !error && (
         <>
-          <div className="flex mb-2 h-[60px] w-[371px] text-center justify-center m-auto rounded-[10px] items-center font-tajawal bg-[#FAFAFA]">
-            <div
-              className=""
-              onClick={() => handleActiveTreeHeader(0)}
-            >
-              <p className="font-[24px] font-bold">{ClassificationValue.value}Projects</p>
+          <div className=" mx-auto flex justify-center items-center mb-2 py-2 w-80 text-center rounded-xl font-tajawal bg-[#FAFAFA]">
+            <div className="" onClick={() => handleActiveTreeHeader(0)}>
+              <p className="text-lg font-bold">
+                {`${ClassificationValue.label} Projects`}
+              </p>
             </div>
-           
           </div>
           <div>
             {activeHeader === 0 && mainTreeData.length > 0 && (
@@ -48,7 +46,6 @@ function TreeBox() {
                 />
               </div>
             )}
-            
           </div>
         </>
       )}

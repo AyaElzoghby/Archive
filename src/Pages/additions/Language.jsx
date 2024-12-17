@@ -1,30 +1,20 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import globalIcon from "/icons/GlobeSimple.svg";
 import { DropDown } from "../../components";
-import { SideMenuContext } from "../../../src/store/SideMenuContext";
+import { SideMenuContext } from "../../store/SideMenuContext";
 
 const Language = () => {
-  const [langMenu, setLangMenu] = useState(false); // Fixed typo in variable name
+  const [LangrMenu, setLangrMenu] = useState(false);
   const dropdownRef = useRef(null);
 
-  const { languageValue, setLanguageValue } = useContext(SideMenuContext);
-
-  // Language options
-  const Languages = [
-    { value: 1, label: "العربيه", img: "/icons/Egypt.svg" },
-    { value: 2, label: "English", img: "/icons/UnitedStates.svg" },
-  ];
-
-  const handleChangeLanguage = (value) => {
-    localStorage.setItem("LangValue", JSON.stringify(value));
-    setLanguageValue(value);
-  };
+  const { languageValue, Languages, handleChangeLanguage } =
+    useContext(SideMenuContext);
 
   // Event listener to close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setLangMenu(false); // Close the dropdown menu
+        setLangrMenu(false); // Close the dropdown menu
       }
     };
 
@@ -35,32 +25,32 @@ const Language = () => {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative w-[150px]">
+    <div ref={dropdownRef} className="relative">
       {/* Trigger Button for Popup */}
       <button
         onClick={(e) => {
           e.stopPropagation(); // Prevent click from propagating to window
-          setLangMenu(!langMenu);
+          setLangrMenu(!LangrMenu);
         }}
-        className="flex justify-center items-center"
+        className={`flex justify-center items-center`}
       >
         <img
           src={globalIcon}
-          alt="Language Selector"
+          alt=""
           className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
         />
       </button>
       <div
-        className={`absolute right-4 top-[50%] ${
-          langMenu ? "flex" : "hidden"
-        }`}
+        className={` absolute ${
+          languageValue === 1 ? "left-0" : "right-0"
+        } w-56 top-8 ${LangrMenu ? "flex" : "hidden"}`}
       >
         <DropDown
           value={languageValue}
           onChange={(val) => {
             handleChangeLanguage(val);
           }}
-          placeHolder={"إختر اللغه"}
+          placeHolder={"اللغه"}
           options={Languages}
         />
       </div>

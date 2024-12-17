@@ -1,4 +1,5 @@
-import {  WelcomeCard, StatsCards } from "../components/UI/index";
+import { WelcomeCard, StatsCards } from "../components/UI/index";
+import DoughnutChart from "../components/Charts/doughnutChart";
 import Reports from "../components/UI/Reports";
 import { FileUploader } from "../components/Grid/inputs/index";
 // import GalleryViewer from "../components/Inputs/GalleryViewer";
