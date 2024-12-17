@@ -7,7 +7,7 @@ function FilterInput({ placeholder }) {
       <input
         type="text"
         placeholder={placeholder ? placeholder : "Key Search"}
-        className=" p-2 font-tajawal font-semibold text-base border border-inputBorder text-inputTextColor focus:border-inputFocuse rounded outline-none placeholder:font-light"
+        className="p-2 font-tajawal font-semibold text-base border border-inputBorder text-inputTextColor focus:border-inputFocuse rounded-lg outline-none placeholder:font-light"
       />
       <div className={`absolute right-2 top-3`}>
         <img src={Filter} alt="" />

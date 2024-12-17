@@ -6,7 +6,7 @@ const SearchInput = ({ onSearch }) => {
     <div className="relative flex-1">
       <input
         type="text"
-        className="w-full box-border p-2 font-tajawal center font-semibold text-base border border-inputBorder text-inputTextColor focus:border-inputFocuse rounded outline-none placeholder:font-light"
+        className="w-full box-border p-2 font-tajawal center font-semibold text-base border border-inputBorder text-inputTextColor focus:border-inputFocuse rounded-lg outline-none placeholder:font-light"
         placeholder="Search"
         onChange={(e) => onSearch(e.target.value)}
       />

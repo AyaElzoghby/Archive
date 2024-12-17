@@ -13,10 +13,13 @@ const TreeNode = ({
   depth,
   expandedNodes,
   handleToggleExpand,
+  handleLeafClick,
+  noNavigate = false,
+  handleSelectExpandedNode,
 }) => {
   const navigate = useNavigate();
 
-  const { pageNameHandler, languageValue } = useContext(SideMenuContext);
+  const { languageValue } = useContext(SideMenuContext);
 
   // console.log(node[NodeName], route);
 
@@ -42,6 +45,9 @@ const TreeNode = ({
 
   let content = "";
 
+  // console.log(handleSelectExpandedNode, "dd");
+  // console.log(node);
+
   //   console.log(path, route, chosenNode);
 
   if (hasChildren) {
@@ -49,10 +55,19 @@ const TreeNode = ({
       <>
         <div
           className={isExpanded ? activeClass : spanClass}
-          onClick={() => handleToggleExpand(node[Id], depth)}
+          onClick={() => {
+            handleToggleExpand(node[Id], depth);
+          }}
+          onDoubleClick={() => {
+            if (noNavigate) {
+              handleSelectExpandedNode(node[ParentId]);
+            } else {
+              navigate(`/Document/${node[Id]}`);
+            }
+          }}
         >
           <img src={Archive} width={20} alt="listIcon" />
-          <span className="w-[190px] font-semibold text-sm font-tajawal">
+          <span className="w-[190px] font-semibold text-sm font-tajawal select-none">
             {node[NodeName]}
           </span>
           {/* <svg
@@ -82,6 +97,7 @@ const TreeNode = ({
               depth={depth + 1}
               expandedNodes={expandedNodes}
               handleToggleExpand={handleToggleExpand}
+              handleSelectExpandedNode={handleSelectExpandedNode}
             />
           ))}
         </ul>
@@ -91,17 +107,20 @@ const TreeNode = ({
     content = (
       <ul
         onClick={() => {
-          navigate(`/Document/${node[Id]}`);
-          pageNameHandler(node[NodeName]);
+          if (noNavigate) {
+            handleLeafClick(node);
+          } else {
+            navigate(`/Document/${node[Id]}`);
+          }
         }}
         className={` w-full rounded flex gap-2 text-sm font-medium font-tajawal py-2 ${
           languageValue === 1 ? "pr-2" : "pl-2"
-        } text-[#227099] cursor-pointer  duration-500 ease-in-out ${
+        } cursor-pointer  duration-500 ease-in-out ${
           languageValue === 1 ? "hover:-translate-x-2" : "hover:translate-x-2"
         } `}
       >
         <img src={Archive} width={14} alt="nestedIcon" />
-        <li>{node[NodeName]}</li>
+        <li className="select-none">{node[NodeName]}</li>
       </ul>
     );
   }
@@ -130,7 +149,15 @@ const buildTree = (ParentId, Id, data) => {
   }));
 };
 
-function TreeView({ ParentId, Id, NodeName, data }) {
+function TreeView({
+  ParentId,
+  Id,
+  NodeName,
+  data,
+  handleLeafClick,
+  noNavigate = false,
+  handleSelectExpandedNode,
+}) {
   const [expandedNodes, setExpandedNodes] = useState({});
 
   const handleToggleExpand = (nodeId, depth) => {
@@ -140,11 +167,13 @@ function TreeView({ ParentId, Id, NodeName, data }) {
     }));
   };
 
-  console.log(data);
+  // console.log(data);
 
   const treeData = buildTree(ParentId, Id, data);
 
-  console.log(treeData);
+  // console.log(treeData);
+
+  // console.log(handleSelectExpandedNode);
 
   return (
     <ul className="list-none">
@@ -159,6 +188,9 @@ function TreeView({ ParentId, Id, NodeName, data }) {
           depth={0}
           expandedNodes={expandedNodes}
           handleToggleExpand={handleToggleExpand}
+          handleLeafClick={handleLeafClick}
+          noNavigate={noNavigate}
+          handleSelectExpandedNode={handleSelectExpandedNode}
         />
       ))}
     </ul>

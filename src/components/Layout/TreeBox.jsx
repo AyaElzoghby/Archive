@@ -14,7 +14,7 @@ function TreeBox() {
 
   const ActivetreeHeaderClass = " text-white bg-mainBlue";
 
-  console.log(mainTreeData);
+  // console.log(mainTreeData);
 
   return (
     <>
