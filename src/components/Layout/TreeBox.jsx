@@ -41,7 +41,7 @@ function TreeBox() {
                 <TreeView
                   ParentId={"MenuParentID"}
                   Id={"MenuID"}
-                  NodeName={"MenuNameAr"}
+                  NodeName={"MenuNameEn"}
                   data={mainTreeData}
                 />
               </div>
