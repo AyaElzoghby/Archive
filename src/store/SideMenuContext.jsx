@@ -98,6 +98,7 @@ function SideMenuProvider({ children }) {
       const response = await api.get(
         `class?CompanyID=${CompanyValue.value}&IsPublic=${ClassificationValue.value}`
       );
+      setMainTreeData(response.data.data);
       console.log(response);
     } catch (error) {
       console.error(error);

@@ -24,12 +24,13 @@ function App() {
         { path: "", element: <WelcomePage /> },
         {
           path: "/FileType",
-          element:<FileType />
-        },{
-          path: "/Calssfication",
-          element:<Calssfication />
-         
+          element: <FileType />,
         },
+        {
+          path: "/Calssfication",
+          element: <Calssfication />,
+        },
+        { path: ":id", element: <AddDocumnet /> },
         { path: "AddDocumnet", element: <AddDocumnet /> },
         { path: "Company", element: <Company /> },
 

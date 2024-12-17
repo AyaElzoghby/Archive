@@ -14,7 +14,7 @@ function AddDocumnet() {
         </div>
       </div>
 
-      <div className="w-[1px] bg-gray-400"></div>
+      <div className="w-[1px] bg-gray-300"></div>
 
       <div className="p-3 flex-1">
         <div className=" flex justify-between items-center gap-2">

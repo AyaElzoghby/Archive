@@ -14,7 +14,7 @@ function RootLayout() {
       <div
         className="flex"
         style={{
-          height: `calc(100vh - 65px)`,
+          height: `calc(91.7vh)`,
         }}
       >
         <Aside />
