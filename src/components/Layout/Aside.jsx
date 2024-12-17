@@ -80,11 +80,7 @@ function Aside() {
         id="Aside"
         ref={AsideRef}
         className={`h-full bg-white rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
-<<<<<<< HEAD
           isOpened ? " flex-1 min-w-[250px]" : "scrollbar-none  min-w-[5.5rem]"
-=======
-          isOpened ? " flex-1 min-w-[350px] " : "scrollbar-none  min-w-[5.5rem]"
->>>>>>> c2bcc67f3036112437058f7945209c9edf56fe8c
         } duration-500 transition-all`}
       >
         {/* Toggle Button */}
