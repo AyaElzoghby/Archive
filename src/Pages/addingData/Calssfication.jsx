@@ -10,7 +10,6 @@ const {ClassificationValue,LangValue,CompanyValue}=useContext(SideMenuContext)
     <>
       <NestedTable
             rowKey={"ClassficationID"}
-            haveDel={false}
             globalParams={{
               CompanyID:1,
               IsPublic:1,
@@ -24,7 +23,7 @@ const {ClassificationValue,LangValue,CompanyValue}=useContext(SideMenuContext)
               trx: {
                 sp: "api_classfication_trx",
               },
-              del: { sp: "" },
+              del: { sp: "api_classification_del" },
               upd: { sp: "api_calssfication_upd " },
             }}
             tableConfig={[
