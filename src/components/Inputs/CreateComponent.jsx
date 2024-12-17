@@ -55,7 +55,7 @@ const CreateComponent = () => {
       <div className="h-full w-full flex font-tajawal flex-col items-center">
         <div
           onClick={togglePopup}
-          className={`w-full h-[108px] border-4 border-dashed rounded-lg p-5 border-gray-400 bg-gray-100 justify-center items-center cursor-pointer`}
+          className={`w-full h-24 border-[3px] border-dashed rounded-lg p-3 border-gray-400 bg-gray-100 justify-center items-center cursor-pointer`}
         >
           <div className="">
             <img
@@ -63,12 +63,9 @@ const CreateComponent = () => {
               className="m-auto my-2 w-6 h-6"
               alt="Uploaded preview"
             />
-
-            <label className="text-center font-semibold text-gray-600 transition-all cursor-pointer">
-              <span className="block text-[24px] font-bold text-gray-500">
-                Create
-              </span>
-            </label>
+            <div className=" text-center text-base font-bold text-gray-500">
+              Create
+            </div>
           </div>
         </div>
       </div>
@@ -78,12 +75,10 @@ const CreateComponent = () => {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div
             ref={popupRef}
-            className="bg-white w-[1240px]  h-[646px] p-6 rounded-lg shadow-lg relative overflow-hidden"
+            className="bg-white w-[1240px] h-[646px] p-6 rounded-lg shadow-lg relative overflow-hidden"
           >
-            <div className="justify-between px-4 mb-4 flex">
-              <p className=" text-[40px] font-bold text-center text-gray-800">
-                Create
-              </p>
+            <div className="px-4 mb-4 flex justify-center">
+              <p className=" text-[40px]  font-bold  text-gray-800">Create</p>
               <button onClick={togglePopup} className="text-black">
                 <img src={Cancel} className="h-5 w-5 font-bold" alt="" />
               </button>
@@ -165,7 +160,7 @@ const CreateComponent = () => {
                 </div>
               </div>
               <div className=" hidden" id="Step2">
-              <div className="flex my-8 gap-2">
+                <div className="flex my-8 gap-2">
                   <div className="w-[100%] h-[10px] mx-auto mb-6 bg-[#227099]"></div>
                   <div className="w-[100%] h-[10px] mx-auto mb-6 bg-[#227099]"></div>
                   <div className="w-[100%] h-[10px] mx-auto mb-6 bg-[#F4F4F4]"></div>
@@ -253,7 +248,6 @@ const CreateComponent = () => {
                   </div>
                 </div>
               </div>
-             
             </div>
           </div>
         </div>

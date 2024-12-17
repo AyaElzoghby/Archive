@@ -12,14 +12,8 @@ const HomePage = () => {
     <>
       <WelcomeCard />
       <StatsCards />
-      <div className="flex justify-between gap-5 p-6">
-        <BarChart />
-        <BarChart />
-      </div>
-      <div className="flex justify-between gap-5 p-6">
-        <DoughnutChart />
-        <DoughnutChart />
-      </div>
+      <BarChart />
+      <DoughnutChart />
     </>
   );
 };

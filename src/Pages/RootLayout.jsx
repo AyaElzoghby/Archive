@@ -30,17 +30,6 @@ function RootLayout() {
             />
           </div>
         </main>
-        {/* <div className="grow border bordeer-[#FAFAFA] border-r-2  p-6">
-          <SearchInput />
-          <div className="flex items-center">
-            <div className="w-[180px] h-[108px] left-0 mt-6 ">
-              <CreateComponent />
-            </div>
-          </div>
-        </div> */}
-        {/* <div className="grow p-4">
-          <SearchInput />
-        </div> */}
       </div>
     </div>
   );
