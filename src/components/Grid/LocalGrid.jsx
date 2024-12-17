@@ -39,7 +39,7 @@ function LocalGrid({
   haveSearch = false,
   searchCol = "",
   rowPerPage = 10,
-  dir = "rtl",
+  dir = "ltr",
   DeleteRoute = "table",
   UpdRoute = "table/",
   InsRoute = "table",
@@ -101,7 +101,6 @@ function LocalGrid({
   const defaultGlobalParamsRef = useRef({});
   const stableParams = params || defaultParamsRef.current;
   const stableGlobalParams = globalParams || defaultGlobalParamsRef.current;
-
   const {
     data: fetchedData,
     refetch,
@@ -119,7 +118,7 @@ function LocalGrid({
     }
   );
 
-  //   console.log(fetchedData);
+    console.log(fetchedData);
 
   // console.log(manipulatedRow, "manipulatedRow  LocalGrid 1");
   useEffect(() => {
@@ -299,6 +298,7 @@ function LocalGrid({
           title
           tableConfig={tableConfig}
           type={"add"}
+          enCaption={dir=='ltr'}
           open={showModal === "add"}
           loading={crudLoader == "add"}
           onClose={showModal === "add" ? hideModel : null}
@@ -314,6 +314,7 @@ function LocalGrid({
         <DraftModal
           title
           tableConfig={tableConfig}
+          enCaption={dir=='ltr'}
           open={showModal === "edit"}
           loading={crudLoader == "edit"}
           onClose={showModal === "edit" ? hideModel : null}
@@ -354,11 +355,9 @@ function LocalGrid({
               </div>
 
               <p className="text-lg font-semibold text-gray-800 text-center mb-2">
-                هل أنت متأكد من حذف هذا الحقل؟
-              </p>
+addAre you sure you want to delete this field?              </p>
               <p className="text-sm text-gray-600 text-center mb-6">
-                يرجى العلم أنه سوف تفقد كافة البيانات الخاصة بهذا الحقل
-              </p>
+              Please note that you will lose all data for this field.              </p>
             </div>
 
             {/* Buttons */}
@@ -381,7 +380,7 @@ function LocalGrid({
                     childStyle={"h-4 w-4"}
                   ></Spinner>
                 ) : (
-                  "حذف"
+                  "Delete"
                 )}
               </button>
 
@@ -391,7 +390,7 @@ function LocalGrid({
                 className="bg-gray-100 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-200 focus:outline-none"
               >
                 {/* <img src={undo} alt="Delete Icon" width="16" height="16" /> */}
-                إلغاء
+                Cancel
               </button>
             </div>
           </div>
@@ -411,10 +410,10 @@ function LocalGrid({
               <CrudButton
                 onsuccess={() => {
                   setCrudModal(false);
-                  toast.success("تمت العملية بنجاح");
+                  toast.success("Completed successfully");
                   refetch();
                 }}
-                title={"تأكيد"}
+                title={"Ok"}
                 body={crudModalContent.body}
               />
 
@@ -446,7 +445,7 @@ function LocalGrid({
           {haveSearch && (
             <input
               type="text"
-              placeholder="بحث"
+              placeholder="Search"
               value={paginationData.search}
               onChange={handleSearch}
               className=" border-2 p-2 border-gray-300 rounded-md outline-none"
@@ -461,7 +460,7 @@ function LocalGrid({
                 setShowModal("filters");
               }}
             >
-              تصفيه
+              filters
             </button>
           ) : (
             filltersComponent[0]
@@ -503,7 +502,7 @@ function LocalGrid({
                           setShowModal("add");
                         }}
                       >
-                        اضافه
+                        Add
                       </TableButton>
                     </div>
                   ) : (
@@ -641,7 +640,7 @@ function LocalGrid({
                               theme="edit"
                               onClick={() => handleStartEditRow(row[rowKey])}
                             >
-                              تعديل
+                              Edit
                             </TableButton>
                           )}
                           {crudHandler.del && (
@@ -652,7 +651,7 @@ function LocalGrid({
                                 setShowModal("del");
                               }}
                             >
-                              حذف
+                              Delete
                             </TableButton>
                           )}
                         </div>
@@ -736,7 +735,7 @@ function LocalGrid({
             onPageChange={handlePageChange}
           />
           <p className="font-tajawal font-medium flex flex-row flex-nowrap min-w-[150px]  ">
-            {`عدد العناصر : ${filteredData.length}`}
+            {`Items Number: ${filteredData.length}`}
           </p>
         </div>
       )}

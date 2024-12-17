@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-// import { profile, homeIcon, logout } from "../../assets";
+import { profile, homeIcon, logout } from "../../assets";
 import X from "../../../public/icons/X.svg";
 import { useRef, useState, useEffect, useContext } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../store/Auth";
 // import { formatDateWithHours } from "../../utilities/functions";
 
@@ -19,7 +19,7 @@ import { SideMenuContext } from "../../store/SideMenuContext";
 // import { buildTree } from "../Grid/utilities";
 
 function Aside() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [userMenu, setUserMenu] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   // const { signOut, user } = useAuth();
@@ -30,9 +30,9 @@ function Aside() {
   const userMenuRef = useRef(null);
   const AsideRef = useRef(null);
 
-  // const navigateHome = () => {
-  //   navigate("/");
-  // };
+  const navigateHome = () => {
+    navigate("/");
+  };
 
   const asideToggler = () => {
     setIsOpened((prev) => !prev);
@@ -183,27 +183,71 @@ function Aside() {
                 {/* Dropdowns */}
                 <AsideDropDowns />
                 {/* Navigation */}
-                {/* <div
-                  className="flex py-2 pl-2 my-2 cursor-pointer hover:mr-1 duration-300"
+
+                <div
+                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
                   onClick={() => {
                     navigateHome();
-                    pageNameHandler("الصفحه الرئيسية");
                   }}
                 >
                   <img
                     src={homeIcon}
                     width={25}
                     alt="homeIcon"
-                    className="w-[20px] pl-1"
+                    className="w-[20px]"
                   />
-                  <h3
-                    className={`text-[#5C5E64] ${
+                  <p 
+                    className={` pt-1 ${
                       isOpened ? "block" : "hidden"
                     }`}
                   >
-                    الصفحة الرئيسية
-                  </h3>
-                </div> */}
+                     Home Page
+                  </p>
+                </div>
+                <div
+                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+                  onClick={() => {
+                    navigate('/filetype')
+
+                  }}
+                >
+                  <img
+                    src={homeIcon}
+                    width={25}
+                    alt="homeIcon"
+                    className="w-[20px]"
+                  />
+                  <p 
+                    className={` pt-1 ${
+                      isOpened ? "block" : "hidden"
+                    }`}
+                  >
+                    Adding File Type 
+                    </p>
+                </div>
+                <div
+                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+                  onClick={() => {
+                    navigate('/Calssfication')
+                    }}
+                >
+                  <img
+                    src={homeIcon}
+                    width={25}
+                    alt="homeIcon"
+                    className="w-[20px]"
+                  />
+                  <p 
+                    className={` pt-1 ${
+                      isOpened ? "block" : "hidden"
+                    }`}
+                  >
+                    Adding Classification 
+                    </p>
+                   
+                </div>
+
+               
 
                 {/* TreeBox */}
                 <TreeBox />

@@ -14,12 +14,12 @@ function RootLayout() {
       <div
         className="flex"
         style={{
-          height: `calc(100vh)`,
+          height: `calc(100vh - 65px)`,
         }}
       >
         <Aside />
-        <main className="w-full h-full overflow-y-auto scrollbar-none">
-          <div className="px-4">
+        <main className="w-full overflow-y-auto scrollbar-none">
+          <div className="px-4 h-full">
             <Outlet />
             <Toaster
               position="bottom-right"

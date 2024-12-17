@@ -12,8 +12,8 @@ const HomePage = () => {
     <>
       <WelcomeCard />
       <StatsCards />
-      <BarChart/>
-        <DoughnutChart />
+      <BarChart />
+      <DoughnutChart />
     </>
   );
 };

@@ -61,7 +61,7 @@ function SideMenuProvider({ children }) {
   const fetchCompanyData = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`table?sp=api_admin_company_trx`);
+      const response = await api.get(`table?sp=arc_admin_company_trx`);
       const formattedCompanyData = handleDropdownFormat(
         response.data.data,
         "CompanyID",

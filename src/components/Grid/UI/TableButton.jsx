@@ -37,6 +37,7 @@ function TableButton({ theme, children, style = "", loading, ...props }) {
 			{...props}>
 			{loading ? (
 				<Spinner
+					screenHeight={false}
 					parentStyle={"min-h-5"}
 					childStyle={"h-4 w-4"}></Spinner>
 			) : (
