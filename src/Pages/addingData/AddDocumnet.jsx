@@ -24,8 +24,6 @@ function AddDocumnet() {
   const [expandedFile, setExpandedFile] = useState({});
   const [showModal, setShowModal] = useState(false);
 
-  const { ClassificationValue } = useContext(SideMenuContext);
-
   const params = useParams();
 
   const id = params.id;
@@ -37,7 +35,7 @@ function AddDocumnet() {
   const fetchCompanyFiles = async () => {
     try {
       setIsLoading(true);
-      const response = await api.get(`file/class?ClassificationID=${4}`);
+      const response = await api.get(`file/class?ClassificationID=${id}`);
       console.log(response);
       setFolderData(response.data.data);
     } catch (error) {
@@ -69,7 +67,7 @@ function AddDocumnet() {
     setExpandedFile(file);
   };
 
-  console.log(expandedFile);
+  console.log(expandedFile, "fares");
 
   console.log(selectedFile);
 
@@ -77,8 +75,11 @@ function AddDocumnet() {
     let src;
     if (exe === "pdf") {
       src = pdfIcon;
+    } else if (exe === "word") {
+      src = wordIcon;
+    } else if (exe === "excel") {
+      src = excelIcon;
     }
-
     return src;
   };
 
@@ -100,7 +101,7 @@ function AddDocumnet() {
             <FilterInput />
           </div>
           <div className="md:w-44 flex justify-center md:justify-start mt-3">
-            <CreateComponent />
+            <CreateComponent FileParentID={expandedFile.FileID} />
           </div>
           {FolderData.length > 0 && (
             <div className="mt-5">
@@ -112,6 +113,7 @@ function AddDocumnet() {
                 noNavigate
                 handleLeafClick={handleChangeSelectedFile}
                 handleSelectExpandedNode={handleChangeExpndedFile}
+                expandedFile={expandedFile}
               />
             </div>
           )}

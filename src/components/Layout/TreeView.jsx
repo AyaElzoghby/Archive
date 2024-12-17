@@ -16,6 +16,7 @@ const TreeNode = ({
   handleLeafClick,
   noNavigate = false,
   handleSelectExpandedNode,
+  expandedFile,
 }) => {
   const navigate = useNavigate();
 
@@ -24,9 +25,15 @@ const TreeNode = ({
   // console.log(node[NodeName], route);
 
   // console.log(expandedNodes[depth], node[Id]);
+  let isExpanded;
 
-  const isExpanded = expandedNodes[depth] === node[Id];
-  // console.log(expandedNodes);
+  if (noNavigate) {
+    isExpanded = expandedFile[Id] ? expandedFile[Id] === node[Id] : false;
+  } else {
+    isExpanded = expandedNodes[depth] === node[Id];
+  }
+
+  console.log(expandedFile, node[Id]);
 
   // Define CSS classes directly for hover effects
   const spanClass = `flex items-center gap-3 w-fit text-[#2B2B2B] rounded-lg hover:cursor-pointer duration-500 ease-in-out transform ${
@@ -34,7 +41,7 @@ const TreeNode = ({
       ? "hover:-translate-x-2 pr-2"
       : "hover:translate-x-2 pl-2"
   } `;
-  const activeClass = `flex items-center gap-3 w-fit rounded-lg cursor-pointer transform ${
+  const activeClass = `flex items-center p-2 gap-3 w-fit rounded-lg cursor-pointer ${
     languageValue === 1 ? "-translate-x-2" : "translate-x-2"
   }`;
 
@@ -56,14 +63,13 @@ const TreeNode = ({
         <div
           className={isExpanded ? activeClass : spanClass}
           onClick={() => {
+            if (noNavigate) {
+              handleSelectExpandedNode(node);
+            }
             handleToggleExpand(node[Id], depth);
           }}
           onDoubleClick={() => {
-            if (noNavigate) {
-              handleSelectExpandedNode(node[ParentId]);
-            } else {
-              navigate(`/Document/${node[Id]}`);
-            }
+            navigate(`/Document/${node[Id]}`);
           }}
         >
           <img src={Archive} width={20} alt="listIcon" />
@@ -98,6 +104,7 @@ const TreeNode = ({
               expandedNodes={expandedNodes}
               handleToggleExpand={handleToggleExpand}
               handleSelectExpandedNode={handleSelectExpandedNode}
+              expandedFile={expandedFile}
             />
           ))}
         </ul>
@@ -157,6 +164,7 @@ function TreeView({
   handleLeafClick,
   noNavigate = false,
   handleSelectExpandedNode,
+  expandedFile = {},
 }) {
   const [expandedNodes, setExpandedNodes] = useState({});
 
@@ -191,6 +199,7 @@ function TreeView({
           handleLeafClick={handleLeafClick}
           noNavigate={noNavigate}
           handleSelectExpandedNode={handleSelectExpandedNode}
+          expandedFile={expandedFile}
         />
       ))}
     </ul>
