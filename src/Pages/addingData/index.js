@@ -1,5 +1,5 @@
 import FileType from "./FileType";
-import Classfication from "./Classfication";
+import Calssfication from "./Calssfication";
 import AddDocumnet from "./AddDocumnet";
 
-export { FileType, Classfication, AddDocumnet };
+export { FileType, Calssfication, AddDocumnet };

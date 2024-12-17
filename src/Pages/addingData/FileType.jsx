@@ -111,7 +111,7 @@ function FileType() {
               Input: true, 
               isRequired: true,
               hidden: false,
-              keyName: "DataTypeID",
+              keyName: "AttributionType",
               width: 200,
             },
           ]}
