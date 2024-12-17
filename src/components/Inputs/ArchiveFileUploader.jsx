@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Upload from "../../../public/assets/Upload.svg";
 
@@ -9,7 +9,6 @@ import pdfIcon from "/icons/pdf.svg";
 import zipIcon from "/icons/zip.svg";
 import rarIcon from "/icons/rar.svg";
 import ArrowLineUp from "/icons/ArrowLineUp.svg";
-import { api } from "../../utilities";
 
 // Utility function to format file size
 const formatFileSize = (size) => {
@@ -55,57 +54,12 @@ const getFileIcon = (file) => {
 	return icon;
 };
 
-const FileUploader = ({ url }) => {
+const ArchiveFileUploader = ({ setFileUploaded }) => {
 	const [file, setFile] = useState(null); // Store a single file
 	const [progress, setProgress] = useState(0);
 	const [isUploading, setIsUploading] = useState(false);
 	const [uploadStatus, setUploadStatus] = useState("");
 	const [isDragging, setIsDragging] = useState(false);
-
-	const token = JSON.parse(localStorage.getItem("AccessToken"));
-
-	const handleFileUpload = async () => {
-		if (!file) {
-			console.log("No file selected.");
-			return;
-		}
-
-		const fd = new FormData();
-		fd.append("image", file);
-		fd.append("LocationID", 4015299);
-		fd.append("ReferenceID", 435079);
-		fd.append("DocumentCode", 1);
-		fd.append("DocumentClassID", 9);
-		fd.append("DocumentName", "WW");
-		fd.append("LangID", 1);
-
-		try {
-			setIsUploading(true);
-			setUploadStatus("Uploading...");
-
-			const response = await api.post(url, fd, {
-				withCredentials: true,
-
-				headers: {
-					Authorization: `barer ${token}`,
-					"Content-Type": "multipart/form-data",
-				},
-				onUploadProgress: ({ loaded, total }) => {
-					const percent = Math.floor((loaded * 100) / total);
-					setProgress(percent);
-				},
-			});
-
-			console.log(response);
-			setUploadStatus("تم الرفع بنجاح");
-		} catch (error) {
-			console.error("Error uploading file:", error);
-			setUploadStatus("لم يتم رفع الملف ");
-		} finally {
-			setIsUploading(false);
-			setFile(null);
-		}
-	};
 
 	const handleDrop = (event) => {
 		event.preventDefault();
@@ -113,13 +67,6 @@ const FileUploader = ({ url }) => {
 
 		const droppedFile = event.dataTransfer.files[0];
 		if (droppedFile) {
-			if (
-				!droppedFile.type === "img" &&
-				!droppedFile.type.startsWith("image/")
-			) {
-				alert("Please upload an image file.");
-				return;
-			}
 			setFile(droppedFile); // Replace the current file with the dropped file
 		}
 	};
@@ -127,17 +74,15 @@ const FileUploader = ({ url }) => {
 	const handleFileInput = (event) => {
 		const selectedFile = event.target.files[0];
 		if (selectedFile) {
-			if (
-				!selectedFile.type === "img" &&
-				!selectedFile.type.startsWith("image/")
-			) {
-				alert("Please upload an image file.");
-				return;
-			}
 			setFile(selectedFile); // Replace the current file with the selected file
 		}
 	};
 
+	useEffect(() => {
+		if (file) {
+			setFileUploaded(file);
+		}
+	}, [file]);
 	return (
 		<div className="h-full flex flex-col items-center">
 			<div
@@ -199,20 +144,6 @@ const FileUploader = ({ url }) => {
 				)}
 			</div>
 
-			{file && (
-				<button
-					onClick={handleFileUpload}
-					className="mt-4 p-2 flex bg-mainBlue w-[223px] h-[48px] justify-center items-center gap-2 text-white rounded-md hover:bg-mainGray hover:text-mainBlue duration-300 ">
-					<p className="font-[14px]">
-						{document.dir === "rlt" ? "ارفع ملف" : "Upload File"}
-					</p>
-					<img
-						src={ArrowLineUp}
-						alt=""
-					/>
-				</button>
-			)}
-
 			{isUploading && (
 				<div className="mt-2 w-full">
 					<p>{uploadStatus}</p>
@@ -224,9 +155,8 @@ const FileUploader = ({ url }) => {
 					</div>
 				</div>
 			)}
-			{!isUploading && uploadStatus && <p>{uploadStatus}</p>}
 		</div>
 	);
 };
 
-export default FileUploader;
+export default ArchiveFileUploader;
