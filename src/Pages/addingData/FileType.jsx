@@ -1,5 +1,5 @@
 
-import { LocalGrid } from "@/components";
+import { LocalGrid } from "../../components/Grid/index";
 import { SideMenuContext } from "../../store/SideMenuContext";
 
 function FileType() {
