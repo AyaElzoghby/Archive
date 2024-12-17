@@ -27,7 +27,7 @@ function NestedTable({
   params = {},
   rowKey,
   rowPerPage = 10,
-  dir = "rtl",
+  dir = "ltr",
   DeleteRoute = "table",
   UpdRoute = "table",
   InsRoute = "table",
@@ -248,6 +248,9 @@ function NestedTable({
     }));
   };
 
+  const delettetext=dir=='rtl'?"حذف" :'delete '
+  const updateText=    dir=='rtl'?"تعديل" :'edit '
+  const insertText=  dir=='rtl'?"اضافه" :'Add '
   const renderRows = (nodes, depth = 0) => {
     return nodes.map((node) => {
       const crudHandler = rowCrud
@@ -326,7 +329,8 @@ function NestedTable({
                         setShowModal("edit");
                       }}
                     >
-                      تعديل
+                      
+                      {updateText}
                     </TableButton>
                   )}
 
@@ -338,7 +342,8 @@ function NestedTable({
                         setManipulatedRow(node);
                       }}
                     >
-                      حذف
+                      
+                      {delettetext}
                     </TableButton>
                   )}
                   {crudHandler.ins && (
@@ -360,7 +365,7 @@ function NestedTable({
                         setShowModal("add");
                       }}
                     >
-                      اضافه
+                    {insertText}
                     </TableButton>
                   )}
                 </div>
@@ -371,7 +376,8 @@ function NestedTable({
           {expandedRows.includes(node[rowKey]) && (
             <div
               style={{
-                paddingRight: (depth + 1) * 20,
+              paddingLeft:dir=='ltr'?(depth + 1) * 20:"",
+                paddingRight: dir=='rtl'?(depth + 1) * 20:"",
               }}
               className={`p-[${depth * 2}px]`}
             >
@@ -405,6 +411,7 @@ function NestedTable({
           open={showModal === "add"}
           onClose={hideModel}
           handleChange={handleChangeInput}
+          enCaption={dir=='ltr'}
           manipulatedRow={manipulatedRow}
           onSubmit={() => handleAddRow(manipulatedRow)}
           handleHideModal={hideModel}
@@ -417,6 +424,7 @@ function NestedTable({
           title
           tableConfig={tableConfig}
           open={showModal === "edit"}
+          enCaption={dir=='ltr'}
           onClose={hideModel}
           handleChange={handleChangeInput}
           manipulatedRow={manipulatedRow}
@@ -456,11 +464,9 @@ function NestedTable({
               </div>
 
               <p className="text-lg font-semibold text-gray-800 text-center mb-2">
-                هل أنت متأكد من حذف هذا الحقل؟
-              </p>
+              Are you sure you want to delete this field?              </p>
               <p className="text-sm text-gray-600 text-center mb-6">
-                يرجى العلم أنه سوف تفقد كافة البيانات الخاصة بهذا الحقل
-              </p>
+              Please note that you will lose all data for this field.              </p>
             </div>
 
             {/* Buttons */}
@@ -478,7 +484,7 @@ function NestedTable({
                   width="16"
                   height="16"
                 />
-                حذف
+{delettetext}
               </button>
 
               <button
@@ -486,7 +492,7 @@ function NestedTable({
                 className="bg-gray-100 text-gray-800 px-6 py-2 rounded-lg hover:bg-gray-200 focus:outline-none"
               >
                 {/* <img src={undo} alt="Delete Icon" width="16" height="16" /> */}
-                إلغاء
+                cancel
               </button>
             </div>
           </div>
@@ -553,10 +559,10 @@ function NestedTable({
                         setShowModal("add");
                       }}
                     >
-                      اضافه
+                     {insertText}
                     </TableButton>
                   ) : (
-                    <p>#</p>
+                    <p></p>
                   )}
                 </TableCell>
               )}

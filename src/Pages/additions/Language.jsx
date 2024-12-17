@@ -32,25 +32,42 @@ const Language = () => {
           e.stopPropagation(); // Prevent click from propagating to window
           setLangrMenu(!LangrMenu);
         }}
-        className={`flex justify-center items-center`}
+        className="flex items-center border rounded-lg px-4 py-2 bg-white hover:bg-gray-100 transition duration-300 ease-out"
       >
         <img
           src={globalIcon}
-          alt=""
-          className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
+          alt="Language Icon"
+          className="w-6 h-6 mr-2" // Adjusted size for the flag icon
         />
+        <span className="font-medium">{languageValue === 1 ? "English" : "العربية"}</span>
+        <svg
+          className={`w-4 h-4 ml-2 transition-transform ${LangrMenu ? "rotate-180" : ""}`}
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
       </button>
+
+      {/* Dropdown Menu */}
       <div
-        className={` absolute ${
-          languageValue === 1 ? "left-0" : "right-0"
-        } w-56 top-8 ${LangrMenu ? "flex" : "hidden"}`}
+        className={`absolute ${languageValue === 1 ? "left-0" : "right-0"} w-56 top-10 ${
+          LangrMenu ? "block" : "hidden"
+        }`}
       >
         <DropDown
           value={languageValue}
           onChange={(val) => {
             handleChangeLanguage(val);
           }}
-          placeHolder={"اللغه"}
+          placeHolder={"Select Language"}
           options={Languages}
         />
       </div>

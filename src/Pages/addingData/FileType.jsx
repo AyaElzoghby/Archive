@@ -1,15 +1,26 @@
 import { LocalGrid } from "../../components";
 import { SideMenuContext } from "../../store/SideMenuContext";
 import { useContext } from "react";
+import {useDropDown} from '../../hooks/useDropDownData'
+
 function FileType() {
   const { languageValue, ClassificationValue } = useContext(SideMenuContext);
+  const {
+    data: attributionDropDown,
+    loading: attributionLoading,
+    error: attributionError,
+  } = useDropDown(
+    "arc_attribution_data_type_trx",
+    {  },
+    "key",
+    "value"
+  );
+  console.log(attributionDropDown)
   return (
     <>
       <LocalGrid
         rowKey={"TypeID"}
         globalParams={{
-          LangID: languageValue,
-          TypeID: ClassificationValue.value,
         }}
         params={{
           ins: {
@@ -23,15 +34,15 @@ function FileType() {
         }}
         tableConfig={[
           {
-            Caption: "TypeID",
-            isRequired: true,
-            Input: true,
-            hidden: false,
+            enCaption: "TypeID",
+            isRequired: false,
+            Input: false,
+            hidden: true,
             keyName: "TypeID",
             width: 100,
           },
           {
-            arCaption: " TypeNameAr",
+            enCaption: " TypeNameAr",
             isRequired: true,
             Input: true,
             type: "text",
@@ -41,7 +52,7 @@ function FileType() {
             width: 200,
           },
           {
-            arCaption: "TypeNameEn",
+            enCaption: "TypeNameEn",
             type: "text",
             Input: true,
             isRequired: true,
@@ -50,7 +61,7 @@ function FileType() {
             width: 200,
           },
           {
-            arCaption: " TypeCode",
+            enCaption: " TypeCode",
             type: "text",
             Input: true,
             isRequired: true,
@@ -73,17 +84,18 @@ function FileType() {
             del: { sp: "type_attribution_Del" },
             upd: { sp: "type_attribution_upd " },
           }}
-          tableConfig={[
+          tableConfig={[  {
+            enCaption: " AttributionID",
+            isRequired: false,
+            Input: false,
+            type: "text",
+            hidden: true,
+            keyName: "AttributionID",
+            width: 200,
+          },
+            
             {
-              Caption: "TypeID",
-              isRequired: true,
-              Input: true,
-              hidden: false,
-              keyName: "TypeID",
-              width: 100,
-            },
-            {
-              arCaption: " AttributionName",
+              enCaption: " input Name",
               isRequired: true,
               Input: true,
               type: "text",
@@ -93,9 +105,10 @@ function FileType() {
               width: 200,
             },
             {
-              arCaption: "AttributionType",
-              type: "text",
-              Input: true,
+              enCaption: "data type",
+              type: "dropDown",
+              options:attributionDropDown,
+              Input: true, 
               isRequired: true,
               hidden: false,
               keyName: "AttributionType",

@@ -1,44 +1,61 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import React, { useEffect, useState } from "react";
+import { api } from "../../utilities";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = () => {
-	// Static data for the chart
-	const data = {
-		labels: ["الكهرباء", "قطع الغيار", "الوقود", "المرتبات", "اخري"], // Labels
-		datasets: [
-			{
-				label: "إحصائيات", // Dataset label
-				data: [40, 25, 15, 10, 10], // Static values for the chart
-				backgroundColor: [
-					"#227099",
-					"#9AA6B2",
-					"#81BFDA",
-					"#0A3981",
-					"#1F509A",
-				],
-				borderColor: ["#227099","#9AA6B2","#81BFDA", "#0A3981", "#1F509A"],
-				borderWidth: 1,
-			},
-		],
-	};
+  const [filesByType, setFilesByType] = useState([]);
 
-	const options = {
-		responsive: true,
-		maintainAspectRatio: false,
-	};
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.get("chart");
+        console.log(response);
+        setFilesByType(response.data.filesByType || []);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
+    fetchData();
+  }, []);
+  const labels = filesByType.map((item) => item.TypeName);
+  const dataValues = filesByType.map((item) => item.NumberOfFiles);
 
-	return (
-		<div
-			className=" p-6 bg-[#fafafa] rounded-md   py-4 m-4"
-			style={{ height: "400px" }}>
-			<Doughnut
-				data={data}
-				options={options}
-			/>
-		</div>
-	);
+  const data = {
+    labels: labels.length > 0 ? labels : ["No Data"], 
+    datasets: [
+      {
+        label: "إحصائيات",
+        data: dataValues.length > 0 ? dataValues : [1], 
+        backgroundColor: [
+          "#227099",
+          "#9AA6B2",
+          "#81BFDA",
+          "#0A3981",
+          "#1F509A",
+        ],
+        borderColor: ["#227099", "#9AA6B2", "#81BFDA", "#0A3981", "#1F509A"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+
+  return (
+    <div
+      className="p-6 bg-[#fafafa] rounded-md py-4 m-4"
+      style={{ height: "400px" }}
+    >
+      <Doughnut data={data} options={options} />
+    </div>
+  );
 };
 
 export default DoughnutChart;
+

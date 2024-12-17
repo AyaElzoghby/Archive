@@ -77,6 +77,7 @@ function DraftModal({
           {tableConfig.map((key) => (
             <RenderModalContent
               key={key.keyName}
+              enCaption={enCaption}
               item={key}
               type={type}
               handleChange={handleChange}
