@@ -14,7 +14,8 @@ import { CustomDropDown } from "./CustomDropDown";
 import { Container } from "../Layout/Container";
 import { ProgressBar } from "../UI/ProgressBar";
 import { useParams } from "react-router-dom";
-const CreateComponent = ({ FileParentID = null }) => {
+import { SideMenuContext } from "../../store/SideMenuContext";
+const CreateComponent = ({ fileID = null }) => {
   const [loading, setLoading] = useState("");
   const [step, setStep] = useState(1);
   const [attributes, setAttributes] = useState([]);
@@ -26,7 +27,7 @@ const CreateComponent = ({ FileParentID = null }) => {
     attributes: {},
     TypeID: "",
     ClassificationID: ClassficationID,
-    FileParentID: FileParentID,
+    FileParentID: fileID,
   });
 
   const [modal, setModal] = useState(false);
@@ -35,6 +36,14 @@ const CreateComponent = ({ FileParentID = null }) => {
   };
   const closeModel = () => {
     setStep(1);
+    setFileForm({
+      FileCode: "",
+      FileName: "",
+      attributes: {},
+      TypeID: "",
+      ClassificationID: ClassficationID,
+      FileParentID: fileID,
+    });
     setModal(false);
   };
 
@@ -56,9 +65,11 @@ const CreateComponent = ({ FileParentID = null }) => {
     try {
       const response = await api.get("attr?TypeID=" + fileForm.TypeID);
       setAttributes(response.data.data);
-      setFileForm({
-        ...fileForm,
-        attributes: convertToAttributionObject(attributes),
+      setFileForm((prev) => {
+        return {
+          ...prev,
+          attributes: convertToAttributionObject(response.data.data),
+        };
       });
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -95,7 +106,6 @@ const CreateComponent = ({ FileParentID = null }) => {
     if (!validate(fileForm)) {
       return;
     }
-    console.log(fileForm);
     setLoading("uploading");
     try {
       const formData = new FormData();
@@ -155,7 +165,6 @@ const CreateComponent = ({ FileParentID = null }) => {
         <div className=" min-h-[400px] min-w-[1000px] mt-8 p-2">
           <Container
             parentStyle={step !== 1 && "hidden"}
-            fileType={fileForm.TypeID}
             Buttons={
               <>
                 {fileForm.TypeID != 5 && (
@@ -229,9 +238,6 @@ const CreateComponent = ({ FileParentID = null }) => {
                     if (!validate(fileForm.attributes)) {
                       return;
                     }
-                    if (!fileType.TypeID && fileType.TypeID != 0) {
-                      toast.error("Please select file type");
-                    }
 
                     incrementStep();
                   }}
@@ -255,8 +261,6 @@ const CreateComponent = ({ FileParentID = null }) => {
               };
               const placeHolder = attr.AttributionName;
               switch (attr.TypeName) {
-                case "DropDown":
-                  return;
                 case "Date":
                   return (
                     <DateArchive
@@ -270,7 +274,7 @@ const CreateComponent = ({ FileParentID = null }) => {
                   return (
                     <Input
                       placholder={placeHolder}
-                      value={fileForm.attributes[attr.AttributionID] || ""}
+                      value={value}
                       onChange={onchange}
                       title={placeHolder}
                     ></Input>
@@ -280,7 +284,7 @@ const CreateComponent = ({ FileParentID = null }) => {
                     <Input
                       type="number"
                       placholder={placeHolder}
-                      value={fileForm.attributes[attr.AttributionID] || ""}
+                      value={value}
                       onChange={onchange}
                       title={placeHolder}
                     ></Input>
@@ -289,7 +293,7 @@ const CreateComponent = ({ FileParentID = null }) => {
                   return (
                     <Input
                       placholder={placeHolder}
-                      value={fileForm.attributes[attr.AttributionID] || ""}
+                      value={value}
                       onChange={onchange}
                       title={placeHolder}
                     ></Input>
