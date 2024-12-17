@@ -58,7 +58,7 @@ const BarChart = () => {
   };
 
   return (
-    <div className="w-full bg-[#fafafa] rounded-lg">
+    <div className=" bg-[#fafafa] rounded-lg   py-4 m-4">
       {chartData.labels.length > 0 && (
         <Bar
           data={{
