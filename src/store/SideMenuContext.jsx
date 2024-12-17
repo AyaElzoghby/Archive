@@ -36,8 +36,8 @@ function SideMenuProvider({ children }) {
     getInitialValue("LangValue")
   );
 
-  const [ClassificationValue, setClassificationValue] = useState(() =>
-    getInitialValue("ClassificationValue")
+  const [ClassificationValue, setClassificationValue] = useState(
+    () => getInitialValue("ClassificationValue") || 0
   );
 
   const [loading, setLoading] = useState(false);
@@ -49,8 +49,8 @@ function SideMenuProvider({ children }) {
   ];
 
   const classifications = [
+    { value: 0, label: "Private" },
     { value: 1, label: "Public" },
-    { value: 2, label: "Private" },
   ];
 
   const handleChangeLanguage = (val) => {
@@ -83,37 +83,28 @@ function SideMenuProvider({ children }) {
     setCompanyValue(value);
   };
 
-  console.log(CompanyValue);
+  // console.log(CompanyValue);
 
   const handleChangeClassificationValue = (value) => {
     localStorage.setItem("ClassificationValue", JSON.stringify(value));
     setClassificationValue(value);
   };
 
-  console.log(ClassificationValue);
+  // console.log(ClassificationValue);
 
-  /**
-   * Fetch tree menu data based on ClassificationValue.
-   */
-  // const fetchMainTreeMenu = useCallback(async () => {
-  //   try {
-  //     if (!ClassificationValue?.value) return; // Avoid fetching if ClassificationValue is not set
-  //     setLoading(true);
-
-  //     // Fetch the data from the API
-  //     const response = await api.get(
-  //       `user/treeMenu?ClassificationID=${ClassificationValue.value}`
-  //     );
-
-  //     // Safely set the tree menu data
-  //     setMainTreeData(response?.data?.treeMenu || []);
-  //   } catch (err) {
-  //     console.error("Error fetching main tree menu data:", err);
-  //     setError("Failed to load main tree menu.");
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }, [ClassificationValue]);
+  const fetchMainTreeMenu = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(
+        `class?CompanyID=${CompanyValue.value}&IsPublic=${ClassificationValue.value}`
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const pageNameHandler = (name) => {
     setPageName(name);
@@ -121,10 +112,13 @@ function SideMenuProvider({ children }) {
 
   useEffect(() => {
     fetchCompanyData();
-    // fetchMainTreeMenu();
   }, []);
 
-  console.log(CompanyData);
+  useEffect(() => {
+    fetchMainTreeMenu();
+  }, [ClassificationValue]);
+
+  // console.log(CompanyData);
 
   // useEffect(() => {
   //   localStorage.setItem("CompanyValue", JSON.stringify(CompanyValue));

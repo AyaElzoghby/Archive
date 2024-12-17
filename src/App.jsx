@@ -1,23 +1,33 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from "../src/Pages/RootLayout";
+import RootLayout from "./Pages/RootLayout";
 import WelcomePage from "./Pages/WelcomePage";
-import FileType from "./Pages/addingData/FileType"
-import HomePage from "./Pages/WelcomePage";
 import SideMenuProvider from "./store/SideMenuContext";
 import { AuthProvider } from "./store/Auth";
+import { QueryClientProvider, QueryClient } from "react-query";
+
+import { FileType } from "./Pages/addingData";
 
 function App() {
+  const queryClient = new QueryClient();
   const routes = createBrowserRouter([
     {
       path: "/",
       element: (
         <AuthProvider>
-          <SideMenuProvider>
-            <RootLayout />
-          </SideMenuProvider>
+          <QueryClientProvider client={queryClient}>
+            <SideMenuProvider>
+              <RootLayout />
+            </SideMenuProvider>
+          </QueryClientProvider>
         </AuthProvider>
       ),
-      children: [{ index: true, element: <HomePage /> }],
+      children: [
+        { path: "", element: <WelcomePage /> },
+        {
+          path: "addData",
+          children: [{ path: "FileType", element: <FileType /> }],
+        },
+      ],
     },
   ]);
 
