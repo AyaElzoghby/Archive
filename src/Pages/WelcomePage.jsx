@@ -12,16 +12,8 @@ const HomePage = () => {
     <>
       <WelcomeCard />
       <StatsCards />
-      <div className=" flex flex-col gap-3">
-        <div className="flex gap-3 mb">
-          <BarChart />
-          <BarChart />
-        </div>
-        <div className="flex gap-3">
-          <DoughnutChart />
-          <DoughnutChart />
-        </div>
-      </div>
+      <BarChart />
+      <DoughnutChart />
     </>
   );
 };
