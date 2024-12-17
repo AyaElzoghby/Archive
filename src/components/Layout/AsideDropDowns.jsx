@@ -16,8 +16,8 @@ function AsideDropDowns() {
   return (
     <div>
       <div className="flex flex-col gap-2 font-tajawal w-[371px] my-4 font-bold">
-        <div className="flex items-center justify-between mb-2">
-          <p>Company:</p>
+        <div className=" items-center justify-between mb-2">
+          <label>Company:</label>
           <div className="max-w-[200px]">
             <MainDropDown
               placeholder={"Company"}
@@ -27,8 +27,8 @@ function AsideDropDowns() {
             ></MainDropDown>
           </div>
         </div>
-        <div className="flex items-center justify-between mb-2">
-          <p>Classification:</p>
+        <div className=" items-center justify-between mb-2">
+          <label>Classification:</label>
           <div className="max-w-[200px]">
             <MainDropDown
               placeholder={"Classification"}
