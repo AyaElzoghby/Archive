@@ -26,7 +26,7 @@ function App() {
           path: "addData",
           children: [
             { path: "FileType", element: <FileType /> },
-            { path: "AddDocumnet", element: <AddDocumnet /> },
+            { path: ":id", element: <AddDocumnet /> },
           ],
         },
       ],
