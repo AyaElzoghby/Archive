@@ -4,7 +4,7 @@ import WelcomePage from "./Pages/WelcomePage";
 import SideMenuProvider from "./store/SideMenuContext";
 import { AuthProvider } from "./store/Auth";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { FileType, Calssfication, AddDocumnet } from "./Pages/addingData";
+import { FileType, Calssfication, AddDocumnet ,Company } from "./Pages/addingData";
 
 function App() {
   const queryClient = new QueryClient();
@@ -31,6 +31,7 @@ function App() {
          
         },
         { path: "AddDocumnet", element: <AddDocumnet /> },
+        { path: "Company", element: <Company /> },
 
       ],
     },
