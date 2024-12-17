@@ -26,7 +26,7 @@ const TreeNode = ({
   // console.log(expandedNodes);
 
   // Define CSS classes directly for hover effects
-  const spanClass = `flex items-center gap-3 w-fit py-2 text-[#2B2B2B] rounded-lg hover:cursor-pointer duration-500 ease-in-out transform ${
+  const spanClass = `flex items-center gap-3 w-fit text-[#2B2B2B] rounded-lg hover:cursor-pointer duration-500 ease-in-out transform ${
     languageValue === 1
       ? "hover:-translate-x-2 pr-2"
       : "hover:translate-x-2 pl-2"
@@ -91,7 +91,7 @@ const TreeNode = ({
     content = (
       <ul
         onClick={() => {
-          navigate(`/addData/${node[Id]}`);
+          navigate(`/Document/${node[Id]}`);
           pageNameHandler(node[NodeName]);
         }}
         className={` w-full rounded flex gap-2 text-sm font-medium font-tajawal py-2 ${
@@ -140,15 +140,17 @@ function TreeView({ ParentId, Id, NodeName, data }) {
     }));
   };
 
+  console.log(data);
+
   const treeData = buildTree(ParentId, Id, data);
 
-  // console.log(treeData);
+  console.log(treeData);
 
   return (
     <ul className="list-none">
       {treeData.map((node) => (
         <TreeNode
-          key={node[Id]} // Use Id for key
+          key={node[Id]}
           ParentId={ParentId}
           Id={Id}
           NodeName={NodeName}
