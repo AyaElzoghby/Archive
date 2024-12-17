@@ -11,8 +11,8 @@ const {ClassificationValue,LangValue,CompanyValue}=useContext(SideMenuContext)
       <NestedTable
             rowKey={"ClassficationID"}
             globalParams={{
-              CompanyID:1,
-              IsPublic:1,
+              CompanyID:CompanyValue.value,
+              IsPublic:ClassificationValue.value,
             }}
             ParentkeyName={"ClassficationParentID"}
 
