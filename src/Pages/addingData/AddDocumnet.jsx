@@ -16,12 +16,13 @@ import excelIcon from "/icons/excel.svg";
 import pdfIcon from "/icons/pdf.svg";
 import zipIcon from "/icons/zip.svg";
 import rarIcon from "/icons/rar.svg";
+import archieveIcon from "/assets/Archive.svg";
 
 function AddDocumnet() {
   const [FolderData, setFolderData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [expandedFile, setExpandedFile] = useState({});
+  const [expandedFile, setExpandedFile] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const params = useParams();
@@ -47,31 +48,31 @@ function AddDocumnet() {
 
   const handleDeleteFile = async () => {
     try {
-      const response = await api.delete(`file/${selectedFile.FileID}`);
+      const response = await api.delete(`file/${selectedFile?.FileID}`);
+      toast.success("file deleted successfully");
       console.log(response);
       setSelectedFile(null);
     } catch (error) {
-      if (error) {
-        toast.error("failed to delete file");
-      }
+      console.error(error);
+      toast.error("failed to delete file");
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleChangeSelectedFile = (file) => {
-    setSelectedFile(file);
+    setSelectedFile((prev) => (prev?.FileID === file.FileID ? null : file));
   };
 
-  const handleChangeExpndedFile = (file) => {
+  const handleChangeExpandedFile = (file) => {
     setExpandedFile(file);
   };
 
   console.log(expandedFile, "fares");
 
-  console.log(selectedFile);
+  console.log(selectedFile, "55555555");
 
-  const ExtractFilePic = (exe) => {
+  const ExtractFilePic = (type = null, exe) => {
     let src;
     if (exe === "pdf") {
       src = pdfIcon;
@@ -80,18 +81,27 @@ function AddDocumnet() {
     } else if (exe === "excel") {
       src = excelIcon;
     }
+
+    if (type === 5) {
+      src = archieveIcon;
+    }
+
     return src;
   };
 
   useEffect(() => {
     fetchCompanyFiles();
-  }, []);
+  }, [id]);
 
   return (
     <>
       {showModal && (
         <Modal open={showModal} onClose={showModal ? ModalToggler : null}>
-          <iframe src={selectedFile.FilePath} width={`${100}%`} height={600} />
+          <iframe
+            src={`${selectedFile.FilePath}`}
+            width={`${100}%`}
+            height={600}
+          />
         </Modal>
       )}
       <div className="flex flex-col md:flex-row h-full">
@@ -101,7 +111,12 @@ function AddDocumnet() {
             <FilterInput />
           </div>
           <div className="md:w-44 flex justify-center md:justify-start mt-3">
-            <CreateComponent FileParentID={expandedFile.FileID} />
+            <CreateComponent
+              onSuccess={() => {
+                fetchCompanyFiles();
+              }}
+              fileID={selectedFile?.FileID || null}
+            />
           </div>
           {FolderData.length > 0 && (
             <div className="mt-5">
@@ -112,8 +127,9 @@ function AddDocumnet() {
                 data={FolderData}
                 noNavigate
                 handleLeafClick={handleChangeSelectedFile}
-                handleSelectExpandedNode={handleChangeExpndedFile}
+                handleSelectExpandedNode={handleChangeExpandedFile}
                 expandedFile={expandedFile}
+                selectedFile={selectedFile}
               />
             </div>
           )}
@@ -133,7 +149,10 @@ function AddDocumnet() {
               {selectedFile && (
                 <div>
                   <img
-                    src={ExtractFilePic(selectedFile.ExtType)}
+                    src={ExtractFilePic(
+                      selectedFile.TypeID,
+                      selectedFile.ExtType
+                    )}
                     alt=""
                     className="h-20 w-20"
                   />
@@ -146,29 +165,33 @@ function AddDocumnet() {
                 </p>
               )}
             </div>
-            <div>
-              <button
-                onClick={ModalToggler}
-                disabled={!selectedFile}
-                className="w-full flex items-center justify-center gap-2 p-1 outline-none bg-mainBlue hover:bg-blue-400 duration-300 rounded-lg font-semibold text-white"
-              >
-                Preview
-                <div>
-                  <img src={previewIcon} alt="" className=" w-4 h-4" />
-                </div>
-              </button>
-            </div>
-            <div>
-              <button
-                onClick={handleDeleteFile}
-                className="w-full flex items-center justify-center gap-2 p-1 outline-none font-semibold text-red-600 bg-red-200 hover:bg-red-100 duration-300 rounded-lg"
-              >
-                Delete
-                <div>
-                  <img src={TrashIcon} alt="" className=" w-4 h-4" />
-                </div>
-              </button>
-            </div>
+            {selectedFile?.TypeID !== 5 && (
+              <div>
+                <button
+                  onClick={ModalToggler}
+                  disabled={!selectedFile}
+                  className="w-full flex items-center justify-center gap-2 p-1 outline-none bg-mainBlue hover:bg-blue-400 duration-300 rounded-lg font-semibold text-white"
+                >
+                  Preview
+                  <div>
+                    <img src={previewIcon} alt="" className=" w-4 h-4" />
+                  </div>
+                </button>
+              </div>
+            )}
+            {selectedFile?.TypeID !== 5 && (
+              <div>
+                <button
+                  onClick={handleDeleteFile}
+                  className="w-full flex items-center justify-center gap-2 p-1 outline-none font-semibold text-red-600 bg-red-200 hover:bg-red-100 duration-300 rounded-lg"
+                >
+                  Delete
+                  <div>
+                    <img src={TrashIcon} alt="" className=" w-4 h-4" />
+                  </div>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

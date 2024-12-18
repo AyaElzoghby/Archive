@@ -17,6 +17,7 @@ const TreeNode = ({
   noNavigate = false,
   handleSelectExpandedNode,
   expandedFile,
+  selectedFile,
 }) => {
   const navigate = useNavigate();
 
@@ -25,13 +26,10 @@ const TreeNode = ({
   // console.log(node[NodeName], route);
 
   // console.log(expandedNodes[depth], node[Id]);
-  let isExpanded;
 
-  if (noNavigate) {
-    isExpanded = expandedFile[Id] ? expandedFile[Id] === node[Id] : false;
-  } else {
-    isExpanded = expandedNodes[depth] === node[Id];
-  }
+  const isExpanded = expandedNodes[depth] === node[Id];
+
+  let chosenNode = selectedFile ? selectedFile[Id] === node[Id] : false;
 
   console.log(expandedFile, node[Id]);
 
@@ -41,7 +39,7 @@ const TreeNode = ({
       ? "hover:-translate-x-2 pr-2"
       : "hover:translate-x-2 pl-2"
   } `;
-  const activeClass = `flex items-center p-2 gap-3 w-fit rounded-lg cursor-pointer ${
+  const activeClass = `flex items-center p-2 gap-3 w-fit bg-gray-200 rounded-lg cursor-pointer ${
     languageValue === 1 ? "-translate-x-2" : "translate-x-2"
   }`;
 
@@ -64,7 +62,7 @@ const TreeNode = ({
           className={isExpanded ? activeClass : spanClass}
           onClick={() => {
             if (noNavigate) {
-              handleSelectExpandedNode(node);
+              handleLeafClick(node);
             }
             handleToggleExpand(node[Id], depth);
           }}
@@ -105,6 +103,9 @@ const TreeNode = ({
               handleToggleExpand={handleToggleExpand}
               handleSelectExpandedNode={handleSelectExpandedNode}
               expandedFile={expandedFile}
+              noNavigate={noNavigate}
+              handleLeafClick={handleLeafClick}
+              selectedFile={selectedFile}
             />
           ))}
         </ul>
@@ -120,7 +121,9 @@ const TreeNode = ({
             navigate(`/Document/${node[Id]}`);
           }
         }}
-        className={` w-full rounded flex gap-2 text-sm font-medium font-tajawal py-2 ${
+        className={`${
+          chosenNode ? "bg-gray-200 mt-2 pl-1 translate-x-4" : ""
+        } w-24 rounded flex gap-2 text-sm font-medium font-tajawal p-2 ${
           languageValue === 1 ? "pr-2" : "pl-2"
         } cursor-pointer  duration-500 ease-in-out ${
           languageValue === 1 ? "hover:-translate-x-2" : "hover:translate-x-2"
@@ -165,6 +168,7 @@ function TreeView({
   noNavigate = false,
   handleSelectExpandedNode,
   expandedFile = {},
+  selectedFile,
 }) {
   const [expandedNodes, setExpandedNodes] = useState({});
 
@@ -200,6 +204,7 @@ function TreeView({
           noNavigate={noNavigate}
           handleSelectExpandedNode={handleSelectExpandedNode}
           expandedFile={expandedFile}
+          selectedFile={selectedFile}
         />
       ))}
     </ul>

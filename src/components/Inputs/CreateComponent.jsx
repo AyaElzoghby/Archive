@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import Create from "../../../public/assets/Create.svg";
 import { Modal } from "../UI";
@@ -15,7 +15,7 @@ import { Container } from "../Layout/Container";
 import { ProgressBar } from "../UI/ProgressBar";
 import { useParams } from "react-router-dom";
 import { SideMenuContext } from "../../store/SideMenuContext";
-const CreateComponent = ({ fileID = null }) => {
+const CreateComponent = ({ onSuccess, fileID = null }) => {
   const [loading, setLoading] = useState("");
   const [step, setStep] = useState(1);
   const [attributes, setAttributes] = useState([]);
@@ -30,10 +30,28 @@ const CreateComponent = ({ fileID = null }) => {
     FileParentID: fileID,
   });
 
+  useEffect(() => {
+    console.log(fileID, "file id inside use effect");
+    if (fileID == null) {
+      setFileForm({
+        ...fileForm,
+        FileParentID: fileID,
+        TypeID: 5,
+      });
+    } else {
+      setFileForm({
+        ...fileForm,
+        FileParentID: fileID,
+        TypeID: "",
+      });
+    }
+  }, [fileID]);
+
   const [modal, setModal] = useState(false);
   const openModel = () => {
     setModal(true);
   };
+  console.log(fileID);
   const closeModel = () => {
     setStep(1);
     setFileForm({
@@ -41,8 +59,8 @@ const CreateComponent = ({ fileID = null }) => {
       FileName: "",
       attributes: {},
       TypeID: "",
-      ClassificationID: ClassficationID,
-      FileParentID: fileID,
+      ClassificationID: "",
+      FileParentID: "",
     });
     setModal(false);
   };
@@ -95,6 +113,9 @@ const CreateComponent = ({ fileID = null }) => {
     let flag = true;
     Object.keys(data).forEach((key) => {
       if (data[key] == "") {
+        if (key == "FileParentID") {
+          return;
+        }
         flag = false;
         toast.error("Please fill all fields");
       }
@@ -102,7 +123,10 @@ const CreateComponent = ({ fileID = null }) => {
     return flag;
   };
 
+  console.log(fileForm);
   const uploadFile = async () => {
+    console.log(fileForm);
+
     if (!validate(fileForm)) {
       return;
     }
@@ -123,6 +147,7 @@ const CreateComponent = ({ fileID = null }) => {
         },
       });
       toast.success("File uploaded successfully");
+      onSuccess();
       closeModel();
     } catch (err) {
       console.error("Error uploading file:", err);
@@ -182,6 +207,7 @@ const CreateComponent = ({ fileID = null }) => {
                     Next
                   </Button>
                 )}
+
                 {fileForm.TypeID == 5 && (
                   <Button
                     onClick={async () => {
@@ -214,15 +240,17 @@ const CreateComponent = ({ fileID = null }) => {
               value={fileForm.FileName}
               title={"FileName"}
             ></Input>
-            <CustomDropDown
-              onChange={(e) => {
-                setFileForm({ ...fileForm, TypeID: e });
-              }}
-              title={"Type"}
-              value={fileForm.TypeID}
-              placholder={"type"}
-              options={fileType}
-            ></CustomDropDown>
+            {fileID != null && (
+              <CustomDropDown
+                onChange={(e) => {
+                  setFileForm({ ...fileForm, TypeID: e });
+                }}
+                title={"Type"}
+                value={fileForm.TypeID}
+                placholder={"type"}
+                options={fileType}
+              ></CustomDropDown>
+            )}
           </Container>
 
           <Container
@@ -306,6 +334,10 @@ const CreateComponent = ({ fileID = null }) => {
             parentStyle={step !== 3 && "hidden" + " grid-cols-1"}
             Buttons={
               <>
+                <Button onClick={decrementStep} theme={"gray"}>
+                  Back
+                </Button>
+
                 {fileForm.file && (
                   <Button
                     theme={"blue"}
@@ -315,9 +347,6 @@ const CreateComponent = ({ fileID = null }) => {
                     upload
                   </Button>
                 )}
-                <Button onClick={decrementStep} theme={"gray"}>
-                  Back
-                </Button>
               </>
             }
           >
