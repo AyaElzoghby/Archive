@@ -1,31 +1,29 @@
 /* eslint-disable react/prop-types */
-import { profile, homeIcon, logout } from "../../assets";
+import { homeIcon } from "../../assets";
 import X from "../../../public/icons/X.svg";
-import { useRef, useState, useEffect, useContext } from "react";
+import { useRef, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../store/Auth";
 // import { formatDateWithHours } from "../../utilities/functions";
 
 import asideBurger from "/icons/AsideBurger.svg";
-import HomeIcon from "/icons/Home.svg";
+// import HomeIcon from "/icons/Home.svg";
 import searchIcon from "/icons/Search-Magnifier.svg";
 
-import { TreeBox, AsideDropDowns } from "./index";
+import { AsideDropDowns } from "./index";
 import { Spinner } from "../UI/index";
-import { IconComp } from "../Grid/UI";
 
 import { SideMenuContext } from "../../store/SideMenuContext";
 import Chatbot from "../../Pages/ChatBot";
-// import { buildTree } from "../Grid/utilities";
+import NestedTree from "../NestedTree";
 
 function Aside() {
   const navigate = useNavigate();
-  const [userMenu, setUserMenu] = useState(false);
-  const [isOpened, setIsOpened] = useState(false);
+  // const [userMenu, setUserMenu] = useState(false);
+  const [isOpened, setIsOpened] = useState(true);
   // const { signOut, user } = useAuth();
-  // const [mainTree, setMainTree] = useState([]);
-  // const [reportTree, setReportTreeData] = useState([]);
-  const { systemValue, loading } = useContext(SideMenuContext);
+
+  const { mainTreeData, loading } = useContext(SideMenuContext);
 
   const userMenuRef = useRef(null);
   const AsideRef = useRef(null);
@@ -44,35 +42,35 @@ function Aside() {
 
   // console.log(mainTree);
 
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-        setUserMenu(false);
-      }
-    }
+  // useEffect(() => {
+  //   function handleClickOutside(event) {
+  //     if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+  //       setUserMenu(false);
+  //     }
+  //   }
 
-    // Add event listener
-    document.addEventListener("mousedown", handleClickOutside);
+  //   // Add event listener
+  //   document.addEventListener("mousedown", handleClickOutside);
 
-    // Cleanup the event listener on component unmount
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [userMenuRef]);
+  //   // Cleanup the event listener on component unmount
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [userMenuRef]);
 
-  useEffect(() => {
-    const handleClickOutsideAside = (e) => {
-      if (AsideRef.current && !AsideRef.current.contains(e.target)) {
-        setIsOpened(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutsideAside = (e) => {
+  //     if (AsideRef.current && !AsideRef.current.contains(e.target)) {
+  //       setIsOpened(false);
+  //     }
+  //   };
 
-    document.addEventListener("mousedown", handleClickOutsideAside);
+  //   document.addEventListener("mousedown", handleClickOutsideAside);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutsideAside);
-    };
-  }, [isOpened]);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutsideAside);
+  //   };
+  // }, [isOpened]);
 
   return (
     <>
@@ -80,14 +78,14 @@ function Aside() {
         id="Aside"
         ref={AsideRef}
         className={`h-full bg-white rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
-          isOpened ? " flex-1 min-w-[220px]" : "scrollbar-none  min-w-[5.5rem]"
+          isOpened ? "flex-1 min-w-[220px]" : "scrollbar-none  min-w-[5.5rem]"
         } duration-500 transition-all`}
       >
         {/* Toggle Button */}
         {!loading && (
           <div>
             <div
-              className={`flex justify-end p-4  h-fit  ${
+              className={`flex justify-end p-4 h-fit ${
                 isOpened ? "block" : "hidden"
               }`}
             >
@@ -101,7 +99,7 @@ function Aside() {
 
             {/* Animated Content */}
             <div
-              className={` transition-opacity duration-500 ${
+              className={`transition-opacity duration-500 ${
                 isOpened
                   ? "opacity-100 max-h-[600px] block"
                   : "opacity-0 max-h-0 hidden"
@@ -245,12 +243,15 @@ function Aside() {
                     className="w-[20px]"
                   />
                   <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
-                  Chatbot
+                    Chatbot
                   </p>
                 </div>
 
-                {/* TreeBox */}
-                <TreeBox />
+                <NestedTree
+                  data={mainTreeData}
+                  parentKeyName={"ClassficationParentID"}
+                  rowKey={"ClassficationID"}
+                />
               </div>
             </div>
           </div>

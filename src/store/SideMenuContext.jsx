@@ -32,12 +32,12 @@ function SideMenuProvider({ children }) {
     getInitialValue("CompanyValue")
   );
 
-  const [languageValue, setLanguageValue] = useState(() =>
-    getInitialValue("LangValue")
+  const [languageValue, setLanguageValue] = useState(
+    () => getInitialValue("LangValue") || 2
   );
 
-  const [ClassificationValue, setClassificationValue] = useState(
-    () => getInitialValue("ClassificationValue") || 0
+  const [ClassificationValue, setClassificationValue] = useState(() =>
+    getInitialValue("ClassificationValue")
   );
 
   const [loading, setLoading] = useState(false);

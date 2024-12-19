@@ -129,6 +129,14 @@ function MainDropDown({
     return () => currentDropDown?.removeEventListener("scroll", handleScroll);
   }, [isFocused]);
 
+  useEffect(() => {
+    if ((!value || Object.keys(value).length === 0) && options.length > 0) {
+      const firstOption = options[0];
+      setInputValue(firstOption.label);
+      if (onChange) onChange(firstOption);
+    }
+  }, []);
+
   return (
     <div
       className={`flex flex-col gap-2 ${
@@ -142,7 +150,7 @@ function MainDropDown({
           placeholder={`Choose ${placeholder}`}
           ref={selectRef}
           className="w-full h-[48px] box-border py-1 pl-2 pr-12 font-tajawal font-semibold text-sm border border-inputBorder text-inputTextColor hover:outline-inputHover hover:outline-2 focus:border-inputFocuse rounded-lg outline-none placeholder:font-light"
-          value={isFocused ? inputValue : value.label}
+          value={isFocused ? inputValue : value.label || options[0]?.label}
           onClick={isFocused ? handleInputBlur : handleInputFocus}
           onBlur={handleInputBlur}
           onKeyDown={handleKeyDown} // Listen for arrow and enter keys
@@ -159,7 +167,7 @@ function MainDropDown({
         {isFocused && (
           <div
             ref={dropDownRef}
-            className="absolute w-full m-1 text-sm font-semibold bg-white border border-[#DCDCDC] rounded-md shadow-lg max-h-40 overflow-y-auto scroll-smooth"
+            className="absolute w-full mt-2 text-sm font-semibold bg-white border border-[#DCDCDC] rounded-md shadow-lg max-h-40 overflow-y-auto scroll-smooth"
             style={{ zIndex: 9999 }}
           >
             {visibleOptions.length > 0 ? (
