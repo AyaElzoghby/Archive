@@ -42,7 +42,7 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 			FileCode: "",
 			FileName: "",
 			attributes: {},
-			TypeID: fileID == null ? "5" : fileID,
+			TypeID: fileID == null ? "5" : "",
 			ClassificationID: ClassficationID,
 			FileParentID: fileID,
 		});
@@ -184,7 +184,7 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 						parentStyle={step !== 1 && "hidden"}
 						Buttons={
 							<>
-								{fileForm.FileParentID && !fileForm.TypeID == 5 && (
+								{fileForm.FileParentID && fileForm.TypeID != 5 && (
 									<Button
 										loading={loading == "attr"}
 										onClick={async () => {
@@ -199,7 +199,8 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 									</Button>
 								)}
 
-								{((!fileForm.FileParentID && fileForm.FileParentID !== 0) ||
+								{((fileForm.FileParentID == null &&
+									fileForm.FileParentID !== 0) ||
 									fileForm.TypeID == 5) && (
 									<Button
 										onClick={async () => {
