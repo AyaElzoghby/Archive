@@ -15,7 +15,7 @@ import { Spinner } from "../UI/index";
 import { IconComp } from "../Grid/UI";
 
 import { SideMenuContext } from "../../store/SideMenuContext";
-
+import Chatbot from "../../Pages/ChatBot";
 // import { buildTree } from "../Grid/utilities";
 
 function Aside() {
@@ -230,6 +230,22 @@ function Aside() {
                   />
                   <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
                     Adding Classification
+                  </p>
+                </div>
+                <div
+                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+                  onClick={() => {
+                    navigate("/Chatbot");
+                  }}
+                >
+                  <img
+                    src={homeIcon}
+                    width={25}
+                    alt="homeIcon"
+                    className="w-[20px]"
+                  />
+                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+                  Chatbot
                   </p>
                 </div>
 

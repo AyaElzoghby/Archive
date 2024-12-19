@@ -1,7 +1,7 @@
 import SearchInput from "../../components/Inputs/SearchInput";
 import FilterInput from "../../components/Inputs/FilterInput";
 import CreateComponent from "../../components/Inputs/CreateComponent";
-import { TreeView } from "../../components";
+import { NestedTable, TreeView } from "../../components";
 import { api } from "../../utilities";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -13,14 +13,12 @@ import wordIcon from "/icons/word.svg";
 import excelIcon from "/icons/excel.svg";
 import pdfIcon from "/icons/pdf.svg";
 import archieveIcon from "/assets/Archive.svg";
-
-import { buildTree } from "../../utilities/functions";
+import NestedTree from "../../components/NestedTree";
 
 function AddDocumnet() {
   const [FolderData, setFolderData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [expandedFile, setExpandedFile] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
   const params = useParams();
@@ -44,8 +42,6 @@ function AddDocumnet() {
     }
   };
 
-  // const dataTree = buildTree(FolderData);
-
   const handleDeleteFile = async () => {
     try {
       const response = await api.delete(`file/${selectedFile?.FileID}`);
@@ -61,16 +57,8 @@ function AddDocumnet() {
   };
 
   const handleChangeSelectedFile = (file) => {
-    setSelectedFile((prev) => (prev?.FileID === file.FileID ? null : file));
+    setSelectedFile(file);
   };
-
-  const handleChangeExpandedFile = (file) => {
-    setExpandedFile(file);
-  };
-
-  // console.log(expandedFile, "fares");
-
-  // console.log(selectedFile, "55555555");
 
   const ExtractFilePic = (type = null, exe) => {
     let src;
@@ -93,6 +81,7 @@ function AddDocumnet() {
     fetchCompanyFiles();
   }, [id]);
 
+  console.log(selectedFile, "selectedFile");
   return (
     <>
       {showModal && (
@@ -112,24 +101,21 @@ function AddDocumnet() {
           </div>
           <div className="md:w-44 flex justify-center md:justify-start mt-3">
             <CreateComponent
+              key={selectedFile?.FileID}
               onSuccess={() => {
                 fetchCompanyFiles();
               }}
-              fileID={selectedFile?.FileID || null}
+              fileID={selectedFile?.FileID}
             />
           </div>
           {FolderData.length > 0 && (
             <div className="mt-5">
-              <TreeView
-                ParentId={"FileParentID"}
-                Id={"FileID"}
-                NodeName={"FileName"}
+              <NestedTree
+                setSelectedFile={handleChangeSelectedFile}
+                dir={"ltr"}
                 data={FolderData}
-                noNavigate
-                handleLeafClick={handleChangeSelectedFile}
-                handleSelectExpandedNode={handleChangeExpandedFile}
-                expandedFile={expandedFile}
-                selectedFile={selectedFile}
+                rowKey={"FileID"}
+                parentKeyName={"FileParentID"}
               />
             </div>
           )}
