@@ -3,20 +3,18 @@ import FilterInput from "../../components/Inputs/FilterInput";
 import CreateComponent from "../../components/Inputs/CreateComponent";
 import { TreeView } from "../../components";
 import { api } from "../../utilities";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { SideMenuContext } from "../../store/SideMenuContext";
 import previewIcon from "/icons/preview.svg";
 import TrashIcon from "/icons/Trash.svg";
 import toast from "react-hot-toast";
 import { Modal } from "../../components";
-
 import wordIcon from "/icons/word.svg";
 import excelIcon from "/icons/excel.svg";
 import pdfIcon from "/icons/pdf.svg";
-import zipIcon from "/icons/zip.svg";
-import rarIcon from "/icons/rar.svg";
 import archieveIcon from "/assets/Archive.svg";
+
+import { buildTree } from "../../utilities/functions";
 
 function AddDocumnet() {
   const [FolderData, setFolderData] = useState([]);
@@ -46,6 +44,8 @@ function AddDocumnet() {
     }
   };
 
+  // const dataTree = buildTree(FolderData);
+
   const handleDeleteFile = async () => {
     try {
       const response = await api.delete(`file/${selectedFile?.FileID}`);
@@ -68,9 +68,9 @@ function AddDocumnet() {
     setExpandedFile(file);
   };
 
-  console.log(expandedFile, "fares");
+  // console.log(expandedFile, "fares");
 
-  console.log(selectedFile, "55555555");
+  // console.log(selectedFile, "55555555");
 
   const ExtractFilePic = (type = null, exe) => {
     let src;
