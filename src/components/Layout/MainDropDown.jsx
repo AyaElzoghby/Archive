@@ -167,7 +167,7 @@ function MainDropDown({
         {isFocused && (
           <div
             ref={dropDownRef}
-            className="absolute w-full m-1 text-sm font-semibold bg-white border border-[#DCDCDC] rounded-md shadow-lg max-h-40 overflow-y-auto scroll-smooth"
+            className="absolute w-full mt-2 text-sm font-semibold bg-white border border-[#DCDCDC] rounded-md shadow-lg max-h-40 overflow-y-auto scroll-smooth"
             style={{ zIndex: 9999 }}
           >
             {visibleOptions.length > 0 ? (
