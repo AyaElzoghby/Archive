@@ -24,9 +24,8 @@ const BarChart = () => {
   // Static data for the chart
   const [chartData] = useState({
     labels: [
-      "Class A",
-      "Class B",
-      "Class C",
+      "HWWC",
+      "Kitchener",
       "Class D",
       "Class A",
       "Class B",
@@ -65,7 +64,7 @@ const BarChart = () => {
             labels: chartData.labels, // Static labels
             datasets: [
               {
-                label: "عدد الاصول", // Dataset label
+                label: "number of files", // Dataset label
                 data: chartData.values, // Static data values
                 borderWidth: 1,
                 backgroundColor: colors, // Array of colors
