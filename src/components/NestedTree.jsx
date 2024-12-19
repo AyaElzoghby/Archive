@@ -72,7 +72,6 @@ export default function NestedTree({
               expandedRows.includes(node[rowKey]) ? "bg-[#fafafa]" : ""
             }  ${node[rowKey] === activeRow ? "bg-[#DfDfDf]" : ""}`}
           >
-            <img src={ExtractFilePic(node.TypeID, node.ExtType)}></img>
             {node.FileName}
           </div>
           {expandedRows.includes(node[rowKey]) && (
