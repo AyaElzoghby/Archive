@@ -63,7 +63,9 @@ export default function NestedTree({
 						className={`px-4 py-2 font-tajawal  cursor-pointer hover:scale-105 duration-300 font-medium flex items-center gap-4 rounded-lg   ${
 							expandedRows.includes(node[rowKey]) ? "bg-[#fafafa]" : ""
 						}  ${node[rowKey] === activeRow ? "bg-[#DfDfDf]" : ""}`}>
-						<img src={ExtractFilePic(node.TypeID, node.ExtType)}></img>
+						<img
+							className="w-6 h-6"
+							src={ExtractFilePic(node.TypeID, node.ExtType)}></img>
 						{node.FileName}
 					</div>
 					{expandedRows.includes(node[rowKey]) && (

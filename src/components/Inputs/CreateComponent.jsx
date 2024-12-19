@@ -42,7 +42,7 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 			FileCode: "",
 			FileName: "",
 			attributes: {},
-			TypeID: "",
+			TypeID: fileID == null ? "5" : fileID,
 			ClassificationID: ClassficationID,
 			FileParentID: fileID,
 		});
@@ -107,7 +107,7 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 
 	const validate = (data = {}) => {
 		let flag = true;
-    console.log(data)
+		console.log(data);
 		Object.keys(data).forEach((key) => {
 			if (data[key] == "") {
 				if (key == "FileParentID") {
@@ -184,7 +184,7 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 						parentStyle={step !== 1 && "hidden"}
 						Buttons={
 							<>
-								{fileForm.FileParentID && (
+								{fileForm.FileParentID && !fileForm.TypeID == 5 && (
 									<Button
 										loading={loading == "attr"}
 										onClick={async () => {
@@ -199,7 +199,8 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 									</Button>
 								)}
 
-								{!fileForm.FileParentID && (
+								{((!fileForm.FileParentID && fileForm.FileParentID !== 0) ||
+									fileForm.TypeID == 5) && (
 									<Button
 										onClick={async () => {
 											await uploadFile();
@@ -228,15 +229,20 @@ const CreateComponent = ({ onSuccess, fileID = null }) => {
 							value={fileForm.FileName}
 							title={"FileName"}></Input>
 						{fileForm.FileParentID != null && (
-              <>{drpoDownloader?<Spinner screenHegit={false}></Spinner>:		<CustomDropDown
-								onChange={(e) => {
-									setFileForm({ ...fileForm, TypeID: e });
-								}}
-								title={"Type"}
-								value={fileForm.TypeID}
-								placholder={"type"}
-								options={fileType}></CustomDropDown>}</>
-					
+							<>
+								{drpoDownloader ? (
+									<Spinner screenHegit={false}></Spinner>
+								) : (
+									<CustomDropDown
+										onChange={(e) => {
+											setFileForm({ ...fileForm, TypeID: e });
+										}}
+										title={"Type"}
+										value={fileForm.TypeID}
+										placholder={"type"}
+										options={fileType}></CustomDropDown>
+								)}
+							</>
 						)}
 					</Container>
 
