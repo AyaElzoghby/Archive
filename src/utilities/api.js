@@ -1,17 +1,17 @@
 import axios from "axios";
 
 const api = axios.create({
-  // // baseURL: "http://localhost:5000/api/",
-  // baseURL: "http://196.219. .210:5002/api/", // Replace with your API base URL
-  baseURL: "http://192.168.1.29:5010/api/ar/", // Replace with your API base URL
-  // baseURL: "http://192.168.1.29:5004/api/", // Replace with your API base URL
-  // baseURL: "http://196.219.138.210:5002/api/ar/", // Replace with your API base URL
-  // baseURL: "http://192.168.1.197:5000/api/ar/", // Replace with your API base URL
-  withCredentials: true, // This allows sending credentials (cookies, authorization headers, etc.)
-  headers: {
-    "Content-Type": "application/json", // Set content type if necessary
-    platform: "Web", // You can set any header you want here
-  },
+	baseURL: "http://192.168.1.29:5002/api/ar/", // Replace with your API base URL
+	// // baseURL: "http://localhost:5000/api/",
+	// baseURL: "http://196.219. .210:5002/api/", // Replace with your API base URL
+	// baseURL: "http://192.168.1.29:5004/api/", // Replace with your API base URL
+	// baseURL: "http://196.219.138.210:5002/api/ar/", // Replace with your API base URL
+	// baseURL: "http://192.168.1.197:5000/api/ar/", // Replace with your API base URL
+	withCredentials: true, // This allows sending credentials (cookies, authorization headers, etc.)
+	headers: {
+		"Content-Type": "application/json", // Set content type if necessary
+		platform: "Web", // You can set any header you want here
+	},
 });
 
 // export const signIn = async (email, password) => {

@@ -12,7 +12,10 @@ export default function NestedTree({
   data,
   rowKey,
   parentKeyName,
+  renderElement = () => {},
   setSelectedFile = () => {},
+  onParentClick = () => {},
+  elementStyle = "",
 }) {
   const [expandedRows, setExpandedRows] = useState([]);
   const [treeData, setTreeData] = useState([]);
@@ -29,23 +32,6 @@ export default function NestedTree({
     );
   };
 
-  const ExtractFilePic = (type = null, exe) => {
-    let src;
-    if (exe === "pdf") {
-      src = pdfIcon;
-    } else if (exe === "word") {
-      src = wordIcon;
-    } else if (exe === "excel") {
-      src = excelIcon;
-    }
-
-    if (type === 5) {
-      src = archieveIcon;
-    }
-
-    return src;
-  };
-
   const { languageValue } = useContext(SideMenuContext);
 
   const renderRows = (nodes, depth = 0) => {
@@ -54,6 +40,7 @@ export default function NestedTree({
         <div
           onClick={(e) => {
             e.stopPropagation();
+            onParentClick(node);
             setActiveRow((prev) => {
               if (prev === node[rowKey]) {
                 setSelectedFile(null);
@@ -70,9 +57,11 @@ export default function NestedTree({
           <div
             className={`px-4 py-2 font-tajawal  cursor-pointer hover:scale-105 duration-300 font-medium flex items-center gap-4 rounded-lg ${
               expandedRows.includes(node[rowKey]) ? "bg-[#fafafa]" : ""
-            }  ${node[rowKey] === activeRow ? "bg-[#DfDfDf]" : ""}`}
+            }  ${
+              node[rowKey] === activeRow ? "bg-[#DfDfDf]" : ""
+            } ${elementStyle}`}
           >
-            {node.FileName}
+            {renderElement(node)}
           </div>
           {expandedRows.includes(node[rowKey]) && (
             <div

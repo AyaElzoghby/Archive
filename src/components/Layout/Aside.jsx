@@ -18,97 +18,95 @@ import Chatbot from "../../Pages/ChatBot";
 import NestedTree from "../NestedTree";
 
 function Aside() {
-  const navigate = useNavigate();
-  // const [userMenu, setUserMenu] = useState(false);
-  const [isOpened, setIsOpened] = useState(true);
-  // const { signOut, user } = useAuth();
+	const navigate = useNavigate();
+	// const [userMenu, setUserMenu] = useState(false);
+	const [isOpened, setIsOpened] = useState(true);
+	// const { signOut, user } = useAuth();
 
-  const { mainTreeData, loading } = useContext(SideMenuContext);
+	const { mainTreeData, loading } = useContext(SideMenuContext);
+	const userMenuRef = useRef(null);
+	const AsideRef = useRef(null);
 
-  const userMenuRef = useRef(null);
-  const AsideRef = useRef(null);
+	const navigateHome = () => {
+		navigate("/");
+	};
 
-  const navigateHome = () => {
-    navigate("/");
-  };
+	const asideToggler = () => {
+		setIsOpened((prev) => !prev);
+	};
 
-  const asideToggler = () => {
-    setIsOpened((prev) => !prev);
-  };
+	// useEffect(() => {
+	//   setMainTree(buildTree(mainTreeData, null, "MenuParentID", "MenuID"));
+	// }, [mainTreeData]);
 
-  // useEffect(() => {
-  //   setMainTree(buildTree(mainTreeData, null, "MenuParentID", "MenuID"));
-  // }, [mainTreeData]);
+	// console.log(mainTree);
 
-  // console.log(mainTree);
+	// useEffect(() => {
+	//   function handleClickOutside(event) {
+	//     if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+	//       setUserMenu(false);
+	//     }
+	//   }
 
-  // useEffect(() => {
-  //   function handleClickOutside(event) {
-  //     if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-  //       setUserMenu(false);
-  //     }
-  //   }
+	//   // Add event listener
+	//   document.addEventListener("mousedown", handleClickOutside);
 
-  //   // Add event listener
-  //   document.addEventListener("mousedown", handleClickOutside);
+	//   // Cleanup the event listener on component unmount
+	//   return () => {
+	//     document.removeEventListener("mousedown", handleClickOutside);
+	//   };
+	// }, [userMenuRef]);
 
-  //   // Cleanup the event listener on component unmount
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, [userMenuRef]);
+	// useEffect(() => {
+	//   const handleClickOutsideAside = (e) => {
+	//     if (AsideRef.current && !AsideRef.current.contains(e.target)) {
+	//       setIsOpened(false);
+	//     }
+	//   };
 
-  // useEffect(() => {
-  //   const handleClickOutsideAside = (e) => {
-  //     if (AsideRef.current && !AsideRef.current.contains(e.target)) {
-  //       setIsOpened(false);
-  //     }
-  //   };
+	//   document.addEventListener("mousedown", handleClickOutsideAside);
 
-  //   document.addEventListener("mousedown", handleClickOutsideAside);
+	//   return () => {
+	//     document.removeEventListener("mousedown", handleClickOutsideAside);
+	//   };
+	// }, [isOpened]);
 
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutsideAside);
-  //   };
-  // }, [isOpened]);
+	return (
+		<>
+			<aside
+				id="Aside"
+				ref={AsideRef}
+				className={`h-full bg-white rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
+					isOpened ? "flex-1 min-w-[220px]" : "scrollbar-none  min-w-[5.5rem]"
+				} duration-500 transition-all`}>
+				{/* Toggle Button */}
+				{!loading && (
+					<div>
+						<div
+							className={`flex justify-end p-4 h-fit ${
+								isOpened ? "block" : "hidden"
+							}`}>
+							<img
+								src={X}
+								alt="toggle"
+								className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
+								onClick={asideToggler}
+							/>
+						</div>
 
-  return (
-    <>
-      <aside
-        id="Aside"
-        ref={AsideRef}
-        className={`h-full bg-white rounded-tl-lg shadow-md overflow-y-auto scrollbar-none ${
-          isOpened ? "flex-1 min-w-[220px]" : "scrollbar-none  min-w-[5.5rem]"
-        } duration-500 transition-all`}
-      >
-        {/* Toggle Button */}
-        {!loading && (
-          <div>
-            <div
-              className={`flex justify-end p-4 h-fit ${
-                isOpened ? "block" : "hidden"
-              }`}
-            >
-              <img
-                src={X}
-                alt="toggle"
-                className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
-                onClick={asideToggler}
-              />
-            </div>
-
-            {/* Animated Content */}
-            <div
-              className={`transition-opacity duration-500 ${
-                isOpened
-                  ? "opacity-100 max-h-[600px] block"
-                  : "opacity-0 max-h-0 hidden"
-              }`}
-            >
-              {/* User Info */}
-              <div className="relative mb-2 border-b  border-b-[#D9D9D9] flex justify-between">
-                <div className="justify-center items-center" ref={userMenuRef}>
-                  {/* <button className="hover:-translate-x-1 duration-300 w-full ease-in-out pt-1 px-3 ">
+						{/* Animated Content */}
+						<div
+							className={`transition-opacity duration-500 ${
+								isOpened
+									? "opacity-100 max-h-[600px] block"
+									: "opacity-0 max-h-0 hidden"
+							}`}>
+							{/* User Info */}
+							<div className="relative mb-2 border-b  border-b-[#D9D9D9] flex justify-between">
+								<div
+									className="justify-center items-center"
+									ref={userMenuRef}>
+									{/* <button className="hover:-translate-x-1 duration-300 w-full ease-in-out pt-1 px-3 ">
                     <div
                       className="flex items-center gap-2"
                       onClick={() => {
@@ -138,8 +136,8 @@ function Aside() {
                       </div>
                     </div>
                   </button> */}
-                  {/* User Menu */}
-                  {/* <div
+									{/* User Menu */}
+									{/* <div
                     className={`${userMenu ? "flex" : "hidden"} ${
                       mobile ? "" : "absolute"
                     } bg-gray-50 z-10 shadow-md border border-[#00000020] p-1 bottom-[-95px] flex-col left-0 w-full`}
@@ -162,8 +160,8 @@ function Aside() {
                       تسجيل الخروج
                     </button>
                   </div> */}
-                </div>
-                {/* <div
+								</div>
+								{/* <div
                   className={` pl-1 pt-3 duration-300 ${
                     isOpened ? "block" : "hidden"
                   }`}
@@ -175,134 +173,136 @@ function Aside() {
                     onClick={asideToggler}
                   />
                 </div> */}
-              </div>
+							</div>
 
-              <div className="px-3">
-                {/* Dropdowns */}
-                <AsideDropDowns />
-                {/* Navigation */}
+							<div className="px-3">
+								{/* Dropdowns */}
+								<AsideDropDowns />
+								{/* Navigation */}
 
-                <div
-                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
-                  onClick={() => {
-                    navigateHome();
-                  }}
-                >
-                  <img
-                    src={homeIcon}
-                    width={25}
-                    alt="homeIcon"
-                    className="w-[20px]"
-                  />
-                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
-                    Home Page
-                  </p>
-                </div>
-                <div
-                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
-                  onClick={() => {
-                    navigate("/filetype");
-                  }}
-                >
-                  <img
-                    src={homeIcon}
-                    width={25}
-                    alt="homeIcon"
-                    className="w-[20px]"
-                  />
-                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
-                    Adding File Type
-                  </p>
-                </div>
-                <div
-                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
-                  onClick={() => {
-                    navigate("/Calssfication");
-                  }}
-                >
-                  <img
-                    src={homeIcon}
-                    width={25}
-                    alt="homeIcon"
-                    className="w-[20px]"
-                  />
-                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
-                    Adding Classification
-                  </p>
-                </div>
-                <div
-                  className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
-                  onClick={() => {
-                    navigate("/Chatbot");
-                  }}
-                >
-                  <img
-                    src={homeIcon}
-                    width={25}
-                    alt="homeIcon"
-                    className="w-[20px]"
-                  />
-                  <p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
-                    Chatbot
-                  </p>
-                </div>
+								<div
+									className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+									onClick={() => {
+										navigateHome();
+									}}>
+									<img
+										src={homeIcon}
+										width={25}
+										alt="homeIcon"
+										className="w-[20px]"
+									/>
+									<p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+										Home Page
+									</p>
+								</div>
+								<div
+									className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+									onClick={() => {
+										navigate("/filetype");
+									}}>
+									<img
+										src={homeIcon}
+										width={25}
+										alt="homeIcon"
+										className="w-[20px]"
+									/>
+									<p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+										Adding File Type
+									</p>
+								</div>
+								<div
+									className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+									onClick={() => {
+										navigate("/Calssfication");
+									}}>
+									<img
+										src={homeIcon}
+										width={25}
+										alt="homeIcon"
+										className="w-[20px]"
+									/>
+									<p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+										Adding Classification
+									</p>
+								</div>
+								<div
+									className="flex gap-4 py-3 pl-2 my-1  items-center cursor-pointer text-[#5C5E64] hover:bg-mainBlue rounded-sm hover:text-[#ffff] font-bold font-tajawal text-[16px] hover:mr-1 duration-300"
+									onClick={() => {
+										navigate("/Chatbot");
+									}}>
+									<img
+										src={homeIcon}
+										width={25}
+										alt="homeIcon"
+										className="w-[20px]"
+									/>
+									<p className={` pt-1 ${isOpened ? "block" : "hidden"}`}>
+										Chatbot
+									</p>
+								</div>
 
-                <NestedTree
-                  data={mainTreeData}
-                  parentKeyName={"ClassficationParentID"}
-                  rowKey={"ClassficationID"}
-                />
-              </div>
-            </div>
-          </div>
-        )}
+								<NestedTree
+									data={mainTreeData}
+									parentKeyName={"ClassficationParentID"}
+									rowKey={"ClassficationID"}
+									onParentClick={(node) => {
+										navigate(`/Document/${node.ClassficationID}`);
+									}}
+									renderElement={(node) => {
+										return (
+											<div className="flex items-center gap-2">
+												{node.ClassficationNameAr}
+											</div>
+										);
+									}}
+								/>
+							</div>
+						</div>
+					</div>
+				)}
 
-        {!isOpened && !loading && (
-          <div>
-            <div
-              className={`flex justify-center items-center py-3 border-b  border-b-[#D9D9D9] duration-300 ${
-                !isOpened ? "block" : "none"
-              }`}
-            >
-              <img
-                src={asideBurger}
-                alt=""
-                className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
-                onClick={asideToggler}
-              />
-            </div>
+				{!isOpened && !loading && (
+					<div>
+						<div
+							className={`flex justify-center items-center py-3 border-b  border-b-[#D9D9D9] duration-300 ${
+								!isOpened ? "block" : "none"
+							}`}>
+							<img
+								src={asideBurger}
+								alt=""
+								className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
+								onClick={asideToggler}
+							/>
+						</div>
 
-            <div className=" px-4 flex flex-col gap-4">
-              <div
-                className={`flex flex-col gap-4 pt-5 pb-3 ${
-                  !isOpened ? "border-b border-b-[#D9D9D9]" : ""
-                }`}
-              >
-                <div
-                  className={`flex justify-center items-center  duration-300 ${
-                    !isOpened ? "block" : "hidden"
-                  }`}
-                >
-                  <img
-                    src={searchIcon}
-                    alt=""
-                    className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
-                    onClick={asideToggler}
-                  />
-                </div>
-              </div>
-            </div>
+						<div className=" px-4 flex flex-col gap-4">
+							<div
+								className={`flex flex-col gap-4 pt-5 pb-3 ${
+									!isOpened ? "border-b border-b-[#D9D9D9]" : ""
+								}`}>
+								<div
+									className={`flex justify-center items-center  duration-300 ${
+										!isOpened ? "block" : "hidden"
+									}`}>
+									<img
+										src={searchIcon}
+										alt=""
+										className="cursor-pointer hover:scale-[1.2] duration-300 ease-out"
+										onClick={asideToggler}
+									/>
+								</div>
+							</div>
+						</div>
 
-            <div className="mt-4 px-4">
-              <p
-                className={`${
-                  !isOpened ? "block" : "hidden"
-                } text-center font-semibold`}
-              >
-                Projects
-              </p>
+						<div className="mt-4 px-4">
+							<p
+								className={`${
+									!isOpened ? "block" : "hidden"
+								} text-center font-semibold`}>
+								Projects
+							</p>
 
-              {/* <div className="mt-5 flex flex-col gap-5 items-center">
+							{/* <div className="mt-5 flex flex-col gap-5 items-center">
                 {systemValue.value === 21 && mainTree.length > 0 && (
                   <>
                     <IconComp
@@ -334,14 +334,14 @@ function Aside() {
 
                 
               </div> */}
-            </div>
-          </div>
-        )}
+						</div>
+					</div>
+				)}
 
-        {loading && <Spinner />}
-      </aside>
-    </>
-  );
+				{loading && <Spinner />}
+			</aside>
+		</>
+	);
 }
 
 export default Aside;
